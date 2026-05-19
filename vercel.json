@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/careflow", "destination": "/careflow/index.html" },
+    { "source": "/careflow/", "destination": "/careflow/index.html" },
+    { "source": "/careflow-birmingham", "destination": "/careflow-birmingham.html" },
+    { "source": "/careflow-sutton-coldfield", "destination": "/careflow-sutton-coldfield.html" },
+    { "source": "/careflow-west-midlands", "destination": "/careflow-west-midlands.html" },
     { "source": "/careflow/:path*", "destination": "/careflow/:path*.html" }
   ]
 }
