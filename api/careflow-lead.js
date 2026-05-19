@@ -1,5 +1,8 @@
 // api/careflow-lead.js — CareFlow lead intake handler
 // Uses Resend for email delivery
+// Handles two form sources:
+//   _form: 'hero' — family/client inquiry (top of page)
+//   _form: 'cta'  — operator early access request (bottom of page)
 
 const https = require('https');
 
@@ -40,26 +43,80 @@ module.exports = async (req, res) => {
     try {
       const lead = typeof body === 'string' ? JSON.parse(body) : body;
       const ts = new Date().toISOString();
-      const {
-        name = 'Not provided',
-        email = '',
-        phone = 'Not provided',
-        careType = 'Not specified',
-        fundingType = 'Not specified',
-        location = 'Not specified',
-        hoursPerWeek = 'Not specified',
-        startDate = 'Not specified',
-        medicalNeeds = 'None',
-        source = 'careflow-landing'
-      } = lead;
+      const isOperator = lead._form === 'cta';
 
       const FROM = 'CareFlow <noreply@ten30studio.com>';
       const date = new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 
-      // Alert to Olalekan
-      const operatorBody = `New CareFlow Enquiry — ${date}
+      let notifyBody, autoReplyBody, autoReplyTo, autoReplySubject;
 
-Name:           ${name}
+      if (isOperator) {
+        // ── OPERATOR EARLY ACCESS FORM ──
+        const {
+          company = 'Not provided',
+          fullName = 'Not provided',
+          email = '',
+          phone = 'Not provided',
+          careType = 'Not specified',
+          fundingType = 'Not specified',
+          location = 'Not specified',
+          capacity = 'Not specified',
+          startDate = 'Not specified',
+          notes = ''
+        } = lead;
+
+        notifyBody = `New CareFlow Operator Request — ${date}
+
+Company:          ${company}
+Contact:          ${fullName}
+Email:            ${email}
+Phone:            ${phone}
+
+Care specialisms: ${careType}
+Funding accepted: ${fundingType}
+Service area:     ${location}
+Current capacity: ${capacity}
+When to start:    ${startDate}
+
+Notes / Questions:
+${notes || 'None'}
+
+Received: ${ts}
+Source: CareFlow Early Access Form
+
+---
+Powered by CareFlow / Ten30 Studios`;
+
+        autoReplyTo = email;
+        autoReplySubject = 'You\'re on the CareFlow early access list';
+        autoReplyBody = `Hi ${fullName},
+
+Thanks for applying — we received your early access request for ${company}.
+
+We're onboarding a small number of UK care operators to shape the product. We'll review your application and be in touch within 48 hours to discuss next steps.
+
+In the meantime, if you have any questions, reply to this email directly.
+
+The CareFlow Team
+Powered by Ten30 Studios`;
+
+      } else {
+        // ── FAMILY / CLIENT INQUIRY FORM ──
+        const {
+          fullName = 'Not provided',
+          email = '',
+          phone = 'Not provided',
+          careType = 'Not specified',
+          fundingType = 'Not specified',
+          location = 'Not specified',
+          hoursPerWeek = 'Not specified',
+          startDate = 'Not specified',
+          specialNeeds = ''
+        } = lead;
+
+        notifyBody = `New CareFlow Family Enquiry — ${date}
+
+Name:           ${fullName}
 Email:          ${email}
 Phone:          ${phone}
 
@@ -68,18 +125,19 @@ Funding:        ${fundingType}
 Location:       ${location}
 Hours/week:     ${hoursPerWeek}
 Start date:     ${startDate}
-Medical needs:  ${medicalNeeds}
+Special needs:  ${specialNeeds || 'None'}
 
 Received: ${ts}
-Source: ${source}
+Source: CareFlow Family Inquiry Form
 
 Reply directly to this email or contact the family at: ${email}
 
 ---
 Powered by CareFlow / Ten30 Studios`;
 
-      // Auto-response to family
-      const familyBody = `Hi ${name},
+        autoReplyTo = email;
+        autoReplySubject = 'We received your care enquiry';
+        autoReplyBody = `Hi ${fullName},
 
 Thank you for reaching out. Your care enquiry has been received and passed directly to the William Waterford team.
 
@@ -91,18 +149,21 @@ Email: info@williamwaterfordcare.co.uk
 
 The CareFlow Team
 Powered by Ten30 Studios`;
+      }
 
       const tasks = [
         sendViaResend(
           'olalekanolarinde@williamwaterfordcare.co.uk',
           FROM,
-          `New CareFlow Enquiry — ${name || 'New Lead'}`,
-          operatorBody
+          isOperator
+            ? `CareFlow Operator Request — ${lead.company || 'New Operator'}`
+            : `New CareFlow Family Enquiry — ${lead.fullName || 'New Lead'}`,
+          notifyBody
         )
       ];
 
-      if (email) {
-        tasks.push(sendViaResend(email, FROM, 'We received your care enquiry', familyBody));
+      if (autoReplyTo) {
+        tasks.push(sendViaResend(autoReplyTo, FROM, autoReplySubject, autoReplyBody));
       }
 
       await Promise.allSettled(tasks);

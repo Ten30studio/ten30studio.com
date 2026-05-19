@@ -1102,48 +1102,50 @@
           </div>
           <div class="intake-field">
             <select name="careType" required>
-              <option value="" disabled selected>Type of care needed</option>
+              <option value="" disabled selected>Care specialisms offered</option>
               <option>Personal care</option>
               <option>Dementia care</option>
               <option>Learning disabilities</option>
               <option>Mental health</option>
               <option>Physical disabilities</option>
               <option>Elderly care 65+</option>
+              <option>Multiple specialisms</option>
               <option>Other</option>
             </select>
           </div>
           <div class="intake-field">
             <select name="fundingType" required>
-              <option value="" disabled selected>Funding type</option>
-              <option>Self-funded</option>
-              <option>NHS</option>
-              <option>Local authority</option>
-              <option>Not sure yet</option>
+              <option value="" disabled selected>Funding types accepted</option>
+              <option>Private / self-funded only</option>
+              <option>NHS Continuing Healthcare</option>
+              <option>Local authority funded</option>
+              <option>Mixed (private + NHS/LA)</option>
             </select>
           </div>
           <div class="intake-field">
-            <input type="text" name="location" placeholder="Location / postcode — e.g. Birmingham, B4" required />
+            <input type="text" name="location" placeholder="Service area / postcode — e.g. Birmingham, B4" required />
           </div>
           <div class="intake-field">
-            <select name="hoursPerWeek">
-              <option value="" disabled selected>Hours per week needed</option>
-              <option>Up to 10h</option>
-              <option>10-20h</option>
-              <option>20-40h</option>
-              <option>Full-time live-in</option>
+            <select name="capacity">
+              <option value="" disabled selected>Current vacancies / capacity</option>
+              <option>1–5 vacancies</option>
+              <option>6–15 vacancies</option>
+              <option>16–30 vacancies</option>
+              <option>30+ vacancies</option>
+              <option>Scaling up — building pipeline now</option>
             </select>
           </div>
           <div class="intake-field">
             <select name="startDate">
-              <option value="" disabled selected>Ideal start date</option>
+              <option value="" disabled selected>When do you want to start?</option>
               <option>As soon as possible</option>
               <option>Within 2 weeks</option>
               <option>Within a month</option>
-              <option>Just researching</option>
+              <option>Just exploring for now</option>
             </select>
           </div>
           <div class="intake-field intake-full">
-            <textarea name="specialNeeds" placeholder="Any specific medical or support needs (optional)" rows="3"></textarea>
+            <textarea name="notes" placeholder="Anything else we should know? (service radius, care packages, staffing, questions)" rows="3"></textarea>
           </div>
           <div class="intake-field intake-full">
             <button type="submit">Request Early Access →</button>
