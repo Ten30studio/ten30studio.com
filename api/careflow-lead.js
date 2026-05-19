@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
         source = 'careflow-landing'
       } = lead;
 
-      const FROM = 'CareFlow <onboarding@resend.dev>';
+      const FROM = 'CareFlow <noreply@ten30studio.com>';
       const date = new Date().toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 
       // Alert to Olalekan
