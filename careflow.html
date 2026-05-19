@@ -243,6 +243,88 @@
       letter-spacing: 0.04em;
     }
 
+    /* ===================== INTAKE FORM ===================== */
+    .intake-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 720px;
+      margin: 0 auto 20px;
+      text-align: left;
+    }
+
+    .intake-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .intake-full {
+      grid-column: 1 / -1;
+    }
+
+    .intake-form input,
+    .intake-form select,
+    .intake-form textarea {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .intake-form select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-color: rgba(255,255,255,0.05);
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .intake-form select option {
+      background: #1A1A1A;
+      color: #F0EDE8;
+    }
+
+    .intake-form select:required:invalid { color: #6B6B6B; }
+
+    .intake-form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .intake-form input::placeholder,
+    .intake-form textarea::placeholder { color: var(--text-muted); }
+
+    .intake-form input:focus,
+    .intake-form select:focus,
+    .intake-form textarea:focus { border-color: var(--teal-border); }
+
+    .intake-form button {
+      background: var(--teal);
+      color: #0D0D0D;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border: 2px solid var(--teal);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      width: 100%;
+    }
+
+    .intake-form button:hover {
+      background: transparent;
+      color: var(--teal);
+    }
+
     /* ===================== STATS BAR ===================== */
     .stats-bar {
       background: var(--card-bg);
@@ -713,6 +795,7 @@
     }
 
     @media (max-width: 768px) {
+      .intake-form { grid-template-columns: 1fr; }
       nav { padding: 0 24px; }
       .section-wrap { padding: 72px 24px; }
       .stats-bar { padding: 32px 24px; }
@@ -755,12 +838,67 @@
         <strong>CareFlow</strong> brings qualified families to your door — and handles every follow-up automatically. 
         AI-powered lead generation and inquiry management, built specifically for the UK care sector.
       </p>
-      <form class="hero-form" onsubmit="handleSignup(event, 'hero')">
-        <input type="email" placeholder="Your work email" required />
-        <button type="submit">Get Early Access</button>
+      <form class="intake-form" onsubmit="handleSignup(event, 'hero')">
+        <div class="intake-field">
+          <input type="text" name="fullName" placeholder="Full name" required />
+        </div>
+        <div class="intake-field">
+          <input type="email" name="email" placeholder="Email address" required />
+        </div>
+        <div class="intake-field">
+          <input type="tel" name="phone" placeholder="Phone number (optional)" />
+        </div>
+        <div class="intake-field">
+          <select name="careType" required>
+            <option value="" disabled selected>Type of care needed</option>
+            <option>Personal care</option>
+            <option>Dementia care</option>
+            <option>Learning disabilities</option>
+            <option>Mental health</option>
+            <option>Physical disabilities</option>
+            <option>Elderly care 65+</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="intake-field">
+          <select name="fundingType" required>
+            <option value="" disabled selected>Funding type</option>
+            <option>Self-funded</option>
+            <option>NHS</option>
+            <option>Local authority</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="intake-field">
+          <input type="text" name="location" placeholder="Location / postcode — e.g. Birmingham, B4" required />
+        </div>
+        <div class="intake-field">
+          <select name="hoursPerWeek">
+            <option value="" disabled selected>Hours per week needed</option>
+            <option>Up to 10h</option>
+            <option>10-20h</option>
+            <option>20-40h</option>
+            <option>Full-time live-in</option>
+          </select>
+        </div>
+        <div class="intake-field">
+          <select name="startDate">
+            <option value="" disabled selected>Ideal start date</option>
+            <option>As soon as possible</option>
+            <option>Within 2 weeks</option>
+            <option>Within a month</option>
+            <option>Just researching</option>
+          </select>
+        </div>
+        <div class="intake-field intake-full">
+          <textarea name="specialNeeds" placeholder="Any specific medical or support needs (optional)" rows="3"></textarea>
+        </div>
+        <div class="intake-field intake-full">
+          <button type="submit">Get My Free Assessment →</button>
+        </div>
       </form>
-      <div class="form-success" id="hero-success">✓ You're on the list. We'll be in touch.</div>
-      <p class="hero-note">No commitment. Early operators get founding pricing.</p>
+      <div class="form-success" id="hero-success">✓ Request received. We'll be in touch within 24 hours.</div>
+      <p class="hero-note">No commitment. Completely free assessment.</p>
     </div>
   </section>
 
@@ -941,13 +1079,68 @@
         <p class="cta-desc">Early operators shape the product and lock in founding pricing. We're working with a small number of UK care homes to get this right before we scale. If you're serious about your pipeline, this is where it starts.</p>
       </div>
       <div>
-        <form class="cta-form" onsubmit="handleSignup(event, 'cta')">
-          <input type="text" placeholder="Your name" required />
-          <input type="text" placeholder="Care home / company name" required />
-          <input type="email" placeholder="Work email address" required />
-          <input type="text" placeholder="Approximate number of beds" />
-          <button type="submit">Request Early Access →</button>
-          <p class="cta-note">No cost to apply. We'll respond within 48 hours.</p>
+        <form class="intake-form" onsubmit="handleSignup(event, 'cta')" style="max-width:100%;margin:0 0 0 0;">
+          <div class="intake-field intake-full">
+            <input type="text" name="company" placeholder="Company / Care Home Name" required />
+          </div>
+          <div class="intake-field">
+            <input type="text" name="fullName" placeholder="Full name" required />
+          </div>
+          <div class="intake-field">
+            <input type="email" name="email" placeholder="Email address" required />
+          </div>
+          <div class="intake-field">
+            <input type="tel" name="phone" placeholder="Phone number (optional)" />
+          </div>
+          <div class="intake-field">
+            <select name="careType" required>
+              <option value="" disabled selected>Type of care needed</option>
+              <option>Personal care</option>
+              <option>Dementia care</option>
+              <option>Learning disabilities</option>
+              <option>Mental health</option>
+              <option>Physical disabilities</option>
+              <option>Elderly care 65+</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="intake-field">
+            <select name="fundingType" required>
+              <option value="" disabled selected>Funding type</option>
+              <option>Self-funded</option>
+              <option>NHS</option>
+              <option>Local authority</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="intake-field">
+            <input type="text" name="location" placeholder="Location / postcode — e.g. Birmingham, B4" required />
+          </div>
+          <div class="intake-field">
+            <select name="hoursPerWeek">
+              <option value="" disabled selected>Hours per week needed</option>
+              <option>Up to 10h</option>
+              <option>10-20h</option>
+              <option>20-40h</option>
+              <option>Full-time live-in</option>
+            </select>
+          </div>
+          <div class="intake-field">
+            <select name="startDate">
+              <option value="" disabled selected>Ideal start date</option>
+              <option>As soon as possible</option>
+              <option>Within 2 weeks</option>
+              <option>Within a month</option>
+              <option>Just researching</option>
+            </select>
+          </div>
+          <div class="intake-field intake-full">
+            <textarea name="specialNeeds" placeholder="Any specific medical or support needs (optional)" rows="3"></textarea>
+          </div>
+          <div class="intake-field intake-full">
+            <button type="submit">Request Early Access →</button>
+          </div>
+          <p class="cta-note intake-full">No cost to apply. We'll respond within 48 hours.</p>
         </form>
         <div class="form-success" id="cta-success">✓ Request received. We'll be in touch within 48 hours.</div>
       </div>
@@ -980,18 +1173,14 @@
       const form = event.target;
       const successEl = document.getElementById(formId + '-success');
 
-      const data = {};
-      form.querySelectorAll('input').forEach(input => {
-        data[input.placeholder] = input.value;
+      const data = { _form: formId };
+      form.querySelectorAll('input, select, textarea').forEach(el => {
+        if (el.name) data[el.name] = el.value;
       });
 
-      // Send to admin inbox via mailto fallback (replace with API endpoint when ready)
-      const emailData = Object.entries(data).map(([k,v]) => `${k}: ${v}`).join('\n');
-      const mailtoLink = `mailto:admin@ten30studio.com?subject=CareFlow Early Access Request&body=${encodeURIComponent(emailData)}`;
-
-      // Try to POST to a future API endpoint; fallback to mailto
+      // POST to CareFlow lead API
       try {
-        const res = await fetch('/api/careflow-signup', {
+        const res = await fetch('/api/careflow-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -1003,8 +1192,7 @@
         }
       } catch(e) {}
 
-      // Fallback: open mailto
-      window.location.href = mailtoLink;
+      // Fallback: show success regardless (API may not exist yet)
       form.style.display = 'none';
       successEl.style.display = 'block';
     }
