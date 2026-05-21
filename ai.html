@@ -72,39 +72,92 @@
 
       <div class="row">
         <!-- CareFlow -->
-        <div class="col-6" style="background: var(--surface); border: 1px solid var(--border); padding: var(--s-7); display: flex; flex-direction: column;">
-          <div style="display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4);">
-            <span class="t-eyebrow gold">UK · Care Homes</span>
-            <span style="font-family: var(--script); font-size: 18px; color: var(--accent); margin-left: auto;">live</span>
+        <div class="col-4" style="background: var(--surface); border: 1px solid var(--border); padding: var(--s-6); display: flex; flex-direction: column;">
+          <div style="margin-bottom: var(--s-3); color: var(--accent-deep);">
+            <!-- Building icon (care home) -->
+            <svg width="40" height="40" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+              <path d="M12 30 L30 14 L48 30" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 30 L16 48 L44 48 L44 30" stroke="currentColor" stroke-width="1.4"/>
+              <rect x="26" y="36" width="8" height="12" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="20" y="34" width="4" height="4" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.7"/>
+              <rect x="36" y="34" width="4" height="4" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.7"/>
+            </svg>
           </div>
-          <h3 style="font-family: var(--serif); font-size: 42px; font-weight: 500; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.012em;">CareFlow</h3>
-          <p class="t-body" style="margin-bottom: var(--s-5);">AI-powered lead generation for care home operators. Qualified families to your door — and every follow-up handled automatically. Built for the UK market.</p>
-          <ul style="list-style: none; margin-bottom: var(--s-6);">
-            <li class="t-small" style="padding: 8px 0; border-bottom: 1px solid var(--rule);">→ Automated inquiry capture + qualification</li>
-            <li class="t-small" style="padding: 8px 0; border-bottom: 1px solid var(--rule);">→ 24-48 hour family response window</li>
-            <li class="t-small" style="padding: 8px 0;">→ CQC-aware messaging + occupancy analytics</li>
+          <div style="display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-3);">
+            <span class="t-eyebrow gold">UK · Care Homes</span>
+            <span style="font-family: var(--script); font-size: 17px; color: var(--accent); margin-left: auto;">live</span>
+          </div>
+          <h3 style="font-family: var(--serif); font-size: 34px; font-weight: 500; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.012em;">CareFlow</h3>
+          <p class="t-body" style="margin-bottom: var(--s-4); font-size: 14px;">AI-powered lead generation for care home operators. Qualified families to your door — every follow-up handled automatically.</p>
+          <ul style="list-style: none; margin-bottom: var(--s-5);">
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ Automated inquiry capture</li>
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ 24-48hr family response</li>
+            <li class="t-small" style="padding: 6px 0;">→ CQC-aware + occupancy analytics</li>
           </ul>
-          <div style="display: flex; gap: var(--s-3); margin-top: auto;">
+          <div style="display: flex; gap: var(--s-2); margin-top: auto; flex-wrap: wrap;">
             <a href="/careflow" class="btn btn-primary">See CareFlow <span class="arrow">→</span></a>
-            <a href="mailto:admin@ten30studio.com?subject=CareFlow" class="btn btn-ghost">Talk to us</a>
           </div>
         </div>
 
         <!-- Forge -->
-        <div class="col-6" style="background: var(--surface); border: 1px solid var(--border); padding: var(--s-7); display: flex; flex-direction: column;">
-          <div style="display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-4);">
-            <span class="t-eyebrow gold">Builders · Operators</span>
-            <span style="font-family: var(--script); font-size: 18px; color: var(--accent); margin-left: auto;">in build</span>
+        <div class="col-4" style="background: var(--surface); border: 1px solid var(--border); padding: var(--s-6); display: flex; flex-direction: column;">
+          <div style="margin-bottom: var(--s-3); color: var(--accent-deep);">
+            <!-- Anvil/forge icon -->
+            <svg width="40" height="40" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+              <path d="M10 28 L50 28 L46 34 L14 34 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M22 34 L20 46 L40 46 L38 34" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M16 46 L44 46" stroke="currentColor" stroke-width="1.6"/>
+              <!-- hammer above -->
+              <path d="M30 8 L36 8 L36 16 L30 16 Z" stroke="currentColor" stroke-width="1.4"/>
+              <line x1="33" y1="16" x2="33" y2="24" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <!-- spark -->
+              <circle cx="42" cy="22" r="1.4" fill="currentColor" opacity="0.7"/>
+              <line x1="44" y1="20" x2="46" y2="18" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+            </svg>
           </div>
-          <h3 style="font-family: var(--serif); font-size: 42px; font-weight: 500; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.012em;">Forge</h3>
-          <p class="t-body" style="margin-bottom: var(--s-5);">The agent-building system we use ourselves. A framework for spinning up production-grade AI agents — with the monitoring, kill switches, and approval gates built in from day one. Currently in private build with launch partners.</p>
-          <ul style="list-style: none; margin-bottom: var(--s-6);">
-            <li class="t-small" style="padding: 8px 0; border-bottom: 1px solid var(--rule);">→ Multi-agent orchestration + role hierarchy</li>
-            <li class="t-small" style="padding: 8px 0; border-bottom: 1px solid var(--rule);">→ Action-log discipline + audit trail</li>
-            <li class="t-small" style="padding: 8px 0;">→ Telegram, email, and webhook surfaces</li>
+          <div style="display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-3);">
+            <span class="t-eyebrow gold">Builders · Operators</span>
+            <span style="font-family: var(--script); font-size: 17px; color: var(--accent); margin-left: auto;">in build</span>
+          </div>
+          <h3 style="font-family: var(--serif); font-size: 34px; font-weight: 500; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.012em;">Forge</h3>
+          <p class="t-body" style="margin-bottom: var(--s-4); font-size: 14px;">The agent-building system we use ourselves. Production-grade AI agents — with monitoring, kill switches, and approval gates built in from day one.</p>
+          <ul style="list-style: none; margin-bottom: var(--s-5);">
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ Multi-agent orchestration</li>
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ Action-log + audit trail</li>
+            <li class="t-small" style="padding: 6px 0;">→ Telegram / email / webhook</li>
           </ul>
-          <div style="display: flex; gap: var(--s-3); margin-top: auto;">
-            <a href="mailto:admin@ten30studio.com?subject=Forge%20early%20access" class="btn btn-outline">Request early access <span class="arrow">→</span></a>
+          <div style="display: flex; gap: var(--s-2); margin-top: auto; flex-wrap: wrap;">
+            <a href="mailto:admin@ten30studio.com?subject=Forge%20early%20access" class="btn btn-outline">Early access <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <!-- DevTools Hub -->
+        <div class="col-4" style="background: var(--surface); border: 1px solid var(--border); padding: var(--s-6); display: flex; flex-direction: column;">
+          <div style="margin-bottom: var(--s-3); color: var(--accent-deep);">
+            <!-- Code brackets / terminal icon -->
+            <svg width="40" height="40" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+              <!-- left bracket { -->
+              <path d="M20 16 Q14 16 14 22 L14 26 Q14 30 10 30 Q14 30 14 34 L14 38 Q14 44 20 44" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- right bracket } -->
+              <path d="M40 16 Q46 16 46 22 L46 26 Q46 30 50 30 Q46 30 46 34 L46 38 Q46 44 40 44" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <!-- cursor / pulse in middle -->
+              <line x1="26" y1="30" x2="32" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="30" y1="26" x2="30" y2="34" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-3);">
+            <span class="t-eyebrow gold">Developer Tools</span>
+            <span style="font-family: var(--script); font-size: 17px; color: var(--accent); margin-left: auto;">live</span>
+          </div>
+          <h3 style="font-family: var(--serif); font-size: 34px; font-weight: 500; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.012em;">DevTools Hub</h3>
+          <p class="t-body" style="margin-bottom: var(--s-4); font-size: 14px;">19 free utilities for developers and AI agents — JSON, JWT, regex, QR, and more. Paid API for high-volume automation.</p>
+          <ul style="list-style: none; margin-bottom: var(--s-5);">
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ All 19 tools free in browser</li>
+            <li class="t-small" style="padding: 6px 0; border-bottom: 1px solid var(--rule);">→ HMAC-signed API keys</li>
+            <li class="t-small" style="padding: 6px 0;">→ $9/mo Pro tier · 10K req/hr</li>
+          </ul>
+          <div style="display: flex; gap: var(--s-2); margin-top: auto; flex-wrap: wrap;">
+            <a href="https://devtools-hub-soo9.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Use the tools <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
