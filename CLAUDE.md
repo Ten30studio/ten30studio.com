@@ -1,6 +1,6 @@
 # ten30studio.com
 
-The Ten30 Studios website. Static HTML site deployed on Vercel.
+The Ten30 Studio website. Static HTML site deployed on Vercel.
 
 ## Production
 

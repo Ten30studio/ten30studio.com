@@ -85,7 +85,7 @@ Received: ${ts}
 Source: CareFlow Early Access Form
 
 ---
-Powered by CareFlow / Ten30 Studios`;
+Powered by CareFlow / Ten30 Studio`;
 
         autoReplyTo = email;
         autoReplySubject = 'You\'re on the CareFlow early access list';
@@ -98,7 +98,7 @@ We're onboarding a small number of UK care operators to shape the product. We'll
 In the meantime, if you have any questions, reply to this email directly.
 
 The CareFlow Team
-Powered by Ten30 Studios`;
+Powered by Ten30 Studio`;
 
       } else {
         // ── FAMILY / CLIENT INQUIRY FORM ──
@@ -133,7 +133,7 @@ Source: CareFlow Family Inquiry Form
 Reply directly to this email or contact the family at: ${email}
 
 ---
-Powered by CareFlow / Ten30 Studios`;
+Powered by CareFlow / Ten30 Studio`;
 
         autoReplyTo = email;
         autoReplySubject = 'We received your care enquiry';
@@ -148,7 +148,7 @@ Phone: 01908062452
 Email: info@williamwaterfordcare.co.uk
 
 The CareFlow Team
-Powered by Ten30 Studios`;
+Powered by Ten30 Studio`;
       }
 
       const tasks = [
