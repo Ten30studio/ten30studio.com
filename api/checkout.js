@@ -28,7 +28,7 @@ module.exports = async function handler(req, res) {
             product_data: {
               name: product_name,
             },
-            unit_amount: Math.round(price * 100), // Convert dollars to cents
+            unit_amount: Math.round(price), // price arg is already in cents (per /ai page buyProduct calls)
           },
           quantity: 1,
         },
