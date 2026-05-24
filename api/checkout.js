@@ -34,8 +34,8 @@ module.exports = async function handler(req, res) {
         },
       ],
       mode: 'payment',
-      success_url: success_url || 'https://ten30studio.com?payment=success',
-      cancel_url: cancel_url || 'https://ten30studio.com?payment=cancelled',
+      success_url: success_url || `https://ten30studio.com/thank-you?product=${encodeURIComponent(product_name)}`,
+      cancel_url: cancel_url || 'https://ten30studio.com/ai',
     });
 
     // Return the checkout session URL
