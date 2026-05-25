@@ -1,7 +1,7 @@
 {
   "name": "ten30studio-com",
   "version": "1.0.0",
-  "description": "Ten30 Studios - Digital Planner Store",
+  "description": "Ten30 Studio - Digital Planner Store",
   "private": true,
   "dependencies": {
     "stripe": "^14.0.0"
