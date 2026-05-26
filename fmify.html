@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FMIFY — Face-Me-I-Face-You</title>
+<meta name="description" content="WhatsApp customer service for any small business. Two AI agents under the business's own name. Zero app, zero dashboard." />
+<style>
+  :root{
+    --bg:#0A0F1C; --panel:#11172B; --panel-2:#0E1424;
+    --ink:#F5F6F8; --ink-soft:#C3C9D6; --mute:#8089A1;
+    --line:#1F2A44; --accent:#D4A24A; --accent-soft:#F0CE89;
+    --good:#5CE0A2; --warn:#F6B85F;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Helvetica Neue",Arial,sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  a{color:var(--accent);text-decoration:none}
+  h1,h2,h3,h4{font-weight:600;letter-spacing:-0.02em;margin:0 0 .5em}
+  h1{font-size:clamp(2.4rem, 6vw, 4.2rem);line-height:1.05;letter-spacing:-0.03em}
+  h2{font-size:clamp(1.8rem, 3.6vw, 2.6rem);line-height:1.1}
+  h3{font-size:1.25rem;color:var(--ink)}
+  h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:600;margin-bottom:1rem}
+  p{margin:0 0 1em;color:var(--ink-soft)}
+  em{color:var(--accent-soft);font-style:normal;font-weight:500}
+  strong{color:var(--ink);font-weight:600}
+  hr{border:none;border-top:1px solid var(--line);margin:0}
+
+  section{padding:7rem 1.5rem;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+
+  /* Hero */
+  .hero{min-height:96vh;display:flex;flex-direction:column;justify-content:center;padding-top:4rem;padding-bottom:4rem;
+    background:radial-gradient(900px 600px at 80% 10%, rgba(212,162,74,.10), transparent 60%),
+               radial-gradient(700px 500px at 10% 90%, rgba(212,162,74,.06), transparent 60%);}
+  .brand{display:flex;align-items:center;gap:.6rem;margin-bottom:3rem;color:var(--mute);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase}
+  .brand .dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+  .hero h1{margin-bottom:.4em}
+  .hero .tag{font-size:clamp(1.05rem,2vw,1.35rem);color:var(--ink-soft);max-width:780px;line-height:1.45}
+  .hero .meta{margin-top:3rem;display:flex;flex-wrap:wrap;gap:1rem 2.4rem;color:var(--mute);font-size:.85rem;letter-spacing:.02em}
+  .hero .meta b{color:var(--ink);font-weight:600}
+  .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .7rem;background:rgba(92,224,162,.08);
+    border:1px solid rgba(92,224,162,.35);color:var(--good);border-radius:999px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+  .pill .ledge{width:6px;height:6px;background:var(--good);border-radius:50%;box-shadow:0 0 12px rgba(92,224,162,.7)}
+
+  /* Big numbers row */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.4rem;margin-top:3.5rem}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.4rem 1.2rem}
+  .stat .n{font-size:2.1rem;font-weight:700;color:var(--ink);letter-spacing:-0.025em;line-height:1.05}
+  .stat .l{margin-top:.35rem;font-size:.8rem;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+
+  /* Two-col */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem}
+  @media (max-width:780px){.grid2{grid-template-columns:1fr;gap:1.6rem}}
+
+  /* Cards & lists */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.6rem}
+  .card h3{margin-bottom:.5em}
+  .lead{font-size:1.15rem;color:var(--ink-soft);max-width:760px}
+  ul.clean{list-style:none;padding:0;margin:0}
+  ul.clean li{padding:1rem 0;border-bottom:1px solid var(--line);color:var(--ink-soft)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li strong{display:block;color:var(--ink);margin-bottom:.15em}
+
+  /* Two-agent diagram */
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:1rem;align-items:stretch;margin-top:2rem}
+  .flow .node{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.4rem;text-align:center}
+  .flow .node .role{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.6rem}
+  .flow .node .name{font-size:1.2rem;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+  .flow .node .desc{font-size:.88rem;color:var(--mute);line-height:1.45}
+  .flow .arrow{align-self:center;color:var(--accent);font-size:1.4rem;font-weight:300}
+  @media (max-width:780px){.flow{grid-template-columns:1fr;}.flow .arrow{transform:rotate(90deg);justify-self:start;padding-left:1.4rem}}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;margin-top:1.2rem;font-size:.94rem}
+  table th,table td{padding:.85rem 1rem;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  table th{color:var(--mute);font-weight:500;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;background:var(--panel-2)}
+  table td{color:var(--ink-soft)}
+  table td strong{color:var(--ink)}
+  table tr:hover td{background:rgba(255,255,255,.015)}
+  .t-mono{font-family:"SF Mono","Menlo",ui-monospace,monospace;font-size:.82rem;color:var(--ink-soft)}
+  .t-num{font-variant-numeric:tabular-nums;text-align:right;color:var(--ink);font-weight:500}
+  .t-tight th, .t-tight td{padding:.6rem .8rem;font-size:.86rem}
+  .ok{color:var(--good);font-weight:500}
+
+  /* TAM/SAM/SOM cone */
+  .cone{display:grid;gap:.6rem;margin-top:2rem;max-width:680px}
+  .cone .layer{padding:1.4rem 1.6rem;border-radius:12px;border:1px solid var(--line);
+    background:linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);position:relative}
+  .cone .layer .k{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.4rem}
+  .cone .layer .v{font-size:1.45rem;font-weight:600;color:var(--ink);letter-spacing:-0.02em}
+  .cone .layer .d{font-size:.88rem;color:var(--mute);margin-top:.3rem}
+  .cone .l1{margin-right:0%}
+  .cone .l2{margin-right:18%}
+  .cone .l3{margin-right:38%}
+
+  /* Why-now */
+  .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;margin-top:2.2rem}
+  .why .w{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.5rem}
+  .why .w .n{font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.6rem}
+  .why .w h4{color:var(--ink);text-transform:none;letter-spacing:0;font-size:1.05rem;margin-bottom:.4rem}
+  .why .w p{font-size:.92rem;margin:0}
+
+  /* Pricing */
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2rem}
+  @media (max-width:780px){.price{grid-template-columns:1fr}}
+  .price .tier{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.8rem}
+  .price .tier.featured{border-color:var(--accent);background:linear-gradient(135deg,var(--panel) 0%, rgba(212,162,74,.06) 100%)}
+  .price .tier h3{margin-bottom:.2em}
+  .price .tier .p{font-size:2.2rem;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:.4em}
+  .price .tier .p span{font-size:1rem;color:var(--mute);font-weight:400}
+  .price .tier .for{font-size:.9rem;color:var(--mute);margin-bottom:1rem}
+
+  /* Transcript table styling */
+  .live{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem;margin-top:1.5rem;overflow-x:auto}
+  .live h4{margin-bottom:.6em}
+  .live table{margin-top:0}
+  .live .msg{color:var(--ink);font-style:italic}
+  .live .rt{color:var(--good);font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+
+  /* Closing */
+  .closing{text-align:center;padding:8rem 1.5rem}
+  .closing h2{font-size:clamp(2rem, 4.5vw, 3.2rem);max-width:880px;margin:0 auto 2rem;line-height:1.2}
+  .closing .sub{color:var(--mute);max-width:600px;margin:0 auto;font-size:.95rem}
+  .closing .sig{margin-top:3rem;color:var(--mute);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+
+  /* Anchors */
+  .accent{color:var(--accent)}
+  .small{font-size:.85rem;color:var(--mute)}
+  .footnote{font-size:.78rem;color:var(--mute);margin-top:2rem}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span> Ten30 Studio</div>
+    <h1>WhatsApp customer service<br/>for the 41 million businesses<br/>that don't use software.</h1>
+    <p class="tag">FMIFY — Face-Me-I-Face-You — is two AI agents that run on any small business's existing WhatsApp account. The owner chats updates to one agent. The other answers customers 24/7, under the business's own name. No app, no dashboard, no learning curve.</p>
+    <div class="meta">
+      <span><b>Phase 1</b> Live · WhatsApp round-trip verified</span>
+      <span><b>May 2026</b></span>
+      <span><span class="pill"><span class="ledge"></span> Production ready</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- OPPORTUNITY NUMBERS -->
+<section>
+  <div class="wrap">
+    <h4>The Opportunity</h4>
+    <h2>33 million small businesses. One problem. No good solution.</h2>
+    <p class="lead">Small businesses run on WhatsApp, DMs, and phone calls — answering the same questions manually, every single day. Existing SaaS tools require dashboards, setup time, and budgets these businesses don't have. The category is wide open.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">33M+</div><div class="l">Small businesses in the USA</div></div>
+      <div class="stat"><div class="n">2B+</div><div class="l">WhatsApp users globally</div></div>
+      <div class="stat"><div class="n">200M+</div><div class="l">Businesses on WhatsApp</div></div>
+      <div class="stat"><div class="n">$11B</div><div class="l">Customer service software market</div></div>
+      <div class="stat"><div class="n">&lt;5%</div><div class="l">SMBs with real CS infrastructure</div></div>
+      <div class="stat"><div class="n">~78%</div><div class="l">Customers buy from first responder</div></div>
+    </div>
+    <p class="footnote">Sources: US SBA Office of Advocacy; DataReportal Digital 2026; WhatsApp Business; Drift Conversational Marketing Report.</p>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <h4>The Problem</h4>
+    <h2>Every small business answers the same questions every day.</h2>
+    <p class="lead">A barbershop in Texas, a boutique in London, a food vendor in Lagos — they all type the same answers, all day, every day. After hours, customers go unserved. There is no leverage, no scale, no rest. Existing tools fail them by demanding the one thing they don't have: time to learn software.</p>
+    <ul class="clean" style="margin-top:2rem">
+      <li><strong>After-hours blindspot.</strong> Customers inquire at night. Owner sleeps. Customer moves on.</li>
+      <li><strong>Repetition fatigue.</strong> The same answers, typed 30 times a day. Kills productivity.</li>
+      <li><strong>No scale without headcount.</strong> More customers = more manual responses. Linear cost.</li>
+      <li><strong>Trust gap with dashboards.</strong> Dashboard products get abandoned. Owners don't trust software they weren't born with.</li>
+      <li><strong>Cost barrier.</strong> Enterprise chatbots start at $200–$500/month. That's rent money.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section>
+  <div class="wrap">
+    <h4>The Solution</h4>
+    <h2>Two agents. One WhatsApp account. Zero apps to learn.</h2>
+    <p class="lead">FMIFY meets the SMB owner where they already live. They chat updates into WhatsApp the same way they chat with their bookkeeper or their staff. A second agent — named by them, branded by them — handles every customer who messages the business.</p>
+
+    <div class="flow">
+      <div class="node">
+        <div class="role">Owner Side</div>
+        <div class="name">Face-Me</div>
+        <div class="desc">Receives natural-language updates from the owner. Extracts facts. Synthesizes into structured knowledge.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <div class="role">Brain</div>
+        <div class="name">Knowledge Base</div>
+        <div class="desc">Per-business store of hours, prices, locations, policies. Versioned, confidence-scored, isolated per client.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <div class="role">Customer Side</div>
+        <div class="name">I-Face-You</div>
+        <div class="desc">Answers customer questions from the KB. Speaks in the business's voice. Names itself whatever the owner chose.</div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:3rem">
+      <div class="card">
+        <h3>What the owner does</h3>
+        <p>Types <em>"We close at 6pm"</em> into a WhatsApp chat. Done.</p>
+        <p class="small">FMIFY extracts <span class="t-mono accent">closing_time = 6:00 PM</span>, writes it to the KB, confirms in the same chat.</p>
+      </div>
+      <div class="card">
+        <h3>What the customer sees</h3>
+        <p>Messages the business as normal. Gets an instant, accurate answer from the brand they know.</p>
+        <p class="small">No "I'm a bot" disclosure required. The agent represents the business — because the business set it up that way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section>
+  <div class="wrap">
+    <h4>Proof of Life</h4>
+    <h2>Live, today. Real WhatsApp, real AI, real customers.</h2>
+    <p class="lead">Phase 1 was wired to production infrastructure on <strong>May 25, 2026</strong>. Two real phones (US owner, Nigerian customer) exchanged messages through Twilio's WhatsApp sandbox. Every message round-tripped through the live FMIFY service — Anthropic Claude on the back end, real signature-verified Twilio webhooks.</p>
+
+    <div class="live">
+      <h4>Live transcript</h4>
+      <table class="t-tight">
+        <thead><tr><th>Time UTC</th><th>From → To</th><th>Message</th><th>Round-trip</th></tr></thead>
+        <tbody>
+          <tr><td class="t-mono">21:31:25</td><td>Owner → biz</td><td class="msg">"We close at 6pm"</td><td>—</td></tr>
+          <tr><td class="t-mono">21:31:30</td><td>biz → Owner</td><td class="msg">"Got it! I've updated your closing time to 6:00 PM. Temi now knows this."</td><td class="rt">4.1s</td></tr>
+          <tr><td class="t-mono">21:36:01</td><td>Customer → biz</td><td class="msg">"Are you open on saturday?"</td><td>—</td></tr>
+          <tr><td class="t-mono">21:36:04</td><td>biz → Customer</td><td class="msg">"Let me check on that for you. You can also reach us directly at +18434427030."</td><td class="rt">2.7s</td></tr>
+          <tr><td class="t-mono">21:45:09</td><td>biz → Customer</td><td class="msg">"Yes, we're open on Sundays! However, we close at 6:00 PM on Sundays..."</td><td class="rt">3.0s</td></tr>
+          <tr><td class="t-mono">21:46:27</td><td>biz → Customer</td><td class="msg">"Jollof rice is ₦2,500 per plate. Is there anything else you'd like to know?"</td><td class="rt">0.8s</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stats" style="margin-top:2.4rem">
+      <div class="stat"><div class="n">7/7</div><div class="l">Acceptance criteria · Live</div></div>
+      <div class="stat"><div class="n">20/20</div><div class="l">Tests passing</div></div>
+      <div class="stat"><div class="n">&lt;5s</div><div class="l">Median round-trip</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">Messages delivered & read</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section>
+  <div class="wrap">
+    <h4>Why Now</h4>
+    <h2>Three curves crossed. They didn't cross 24 months ago.</h2>
+    <div class="why">
+      <div class="w">
+        <div class="n">1</div>
+        <h4>WhatsApp Business API matured.</h4>
+        <p>Messaging cost dropped ~80% since 2022. A 1,000-msg/month business now runs at $10–15 infra cost — viable at SMB price points.</p>
+      </div>
+      <div class="w">
+        <div class="n">2</div>
+        <h4>AI inference got cheap enough.</h4>
+        <p>GPT-4-class intelligence at ~$0.003–$0.010 per 1K tokens. A full customer Q&A interaction costs under half a cent. The unit economics now work below $25/month price points.</p>
+      </div>
+      <div class="w">
+        <div class="n">3</div>
+        <h4>WhatsApp is now mainstream globally.</h4>
+        <p>2B+ active users. Fastest-growing messaging channel in the US. The "will they use it" question is settled — businesses and customers are already there. Nobody's built the SMB customer service layer on top of it.</p>
+      </div>
+    </div>
+    <p class="footnote" style="margin-top:2.5rem">A fourth tailwind: no incumbent has solved this for SMBs. The category is fragmented — helpdesk tools, messaging APIs, generic chatbot builders — and every player demands the one thing the customer won't give: time to learn software.</p>
+  </div>
+</section>
+
+<!-- MARKET SIZE -->
+<section>
+  <div class="wrap">
+    <h4>Market Size</h4>
+    <h2>$19B addressable. $49/month entry.</h2>
+    <div class="cone">
+      <div class="layer l1">
+        <div class="k">TAM · Total Addressable Market</div>
+        <div class="v">$11B–$19B / year</div>
+        <div class="d">33M US small businesses + 200M global WhatsApp businesses. Customer service software is an $11B market with almost none of it reaching SMBs.</div>
+      </div>
+      <div class="layer l2">
+        <div class="k">SAM · Serviceable</div>
+        <div class="v">$588M–$1.2B / year</div>
+        <div class="d">1–2M SMBs in repeat-question-heavy verticals (barbershops, salons, food, clinics, retail, logistics) with WhatsApp-first customer bases and ability to pay $49–$99/month.</div>
+      </div>
+      <div class="layer l3">
+        <div class="k">SOM · Year 1 Target</div>
+        <div class="v">$294K–$764K ARR</div>
+        <div class="d">500–1,000 paying clients in year one — achievable through warm network and community distribution alone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS MODEL -->
+<section>
+  <div class="wrap">
+    <h4>Business Model</h4>
+    <h2>Simple subscription. Real margin.</h2>
+    <div class="price">
+      <div class="tier">
+        <h3>Entry</h3>
+        <div class="p">$49<span>/month</span></div>
+        <div class="for">Solo operators · single location · salon, tailor, food vendor, clinic</div>
+        <ul class="clean" style="font-size:.92rem">
+          <li>Unlimited customer messages</li>
+          <li>Branded customer agent</li>
+          <li>Owner-side chat updates</li>
+          <li>Multi-language (English, Pidgin, Yoruba, Igbo, Hausa)</li>
+        </ul>
+      </div>
+      <div class="tier featured">
+        <h3>Growth <span style="font-size:.75rem;color:var(--accent);margin-left:.4em;letter-spacing:.12em">FOR SCALE</span></h3>
+        <div class="p">$99<span>/month</span></div>
+        <div class="for">Multi-location · high query volume · priority support</div>
+        <ul class="clean" style="font-size:.92rem">
+          <li>Everything in Entry</li>
+          <li>Multi-location routing</li>
+          <li>Priority response SLA</li>
+          <li>Monthly performance reports</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:3.5rem">Unit economics</h3>
+    <table>
+      <thead><tr><th>Component</th><th>Per-client cost</th></tr></thead>
+      <tbody>
+        <tr><td>WhatsApp Business API (BSP + messaging)</td><td class="t-num">$5–$12</td></tr>
+        <tr><td>AI inference (LLM calls)</td><td class="t-num">$3–$8</td></tr>
+        <tr><td>Compute, storage, ops overhead</td><td class="t-num">$4–$8</td></tr>
+        <tr><td><strong>Total cost per client</strong></td><td class="t-num"><strong>$12–$28</strong></td></tr>
+        <tr><td><strong>Gross margin (Entry tier, worst case)</strong></td><td class="t-num ok"><strong>43%</strong></td></tr>
+        <tr><td><strong>Gross margin (Growth tier, mid case)</strong></td><td class="t-num ok"><strong>72%</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">Infrastructure cost compresses to ~$12–15/client at scale (1,000+) as AI pricing continues declining. Margins improve year over year.</p>
+  </div>
+</section>
+
+<!-- PROJECTIONS -->
+<section>
+  <div class="wrap">
+    <h4>Revenue Projections</h4>
+    <h2>Path from 100 to 5,000 clients.</h2>
+    <p class="lead">Lean operating model: founder-led ops, no paid acquisition, community distribution. Path to profitability around 400–500 clients at current cost structure.</p>
+    <table>
+      <thead>
+        <tr><th>Scale</th><th>Client mix</th><th>MRR</th><th>ARR</th><th>Gross margin / mo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>100 clients</strong></td><td>80% Entry / 20% Growth</td><td class="t-num">$5,900</td><td class="t-num">$70,800</td><td class="t-num">$2,540–$3,240</td></tr>
+        <tr><td><strong>500 clients</strong></td><td>75% Entry / 25% Growth</td><td class="t-num">$30,600</td><td class="t-num">$367,200</td><td class="t-num">$13,160–$16,830</td></tr>
+        <tr><td><strong>1,000 clients</strong></td><td>65% Entry / 35% Growth</td><td class="t-num">$66,300</td><td class="t-num">$795,600</td><td class="t-num">$28,500–$36,500</td></tr>
+        <tr><td><strong>5,000 clients</strong></td><td>60% Entry / 40% Growth</td><td class="t-num">$339,000</td><td class="t-num">$4.07M</td><td class="t-num">$145K–$186K</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- GO-TO-MARKET -->
+<section>
+  <div class="wrap">
+    <h4>Go-to-Market</h4>
+    <h2>Distribution before product. Warm networks first.</h2>
+    <p class="lead">FMIFY doesn't need a marketing budget. It needs <em>trust distribution</em> — and small businesses already run on word of mouth and community networks. Every business owner is in 3–10 WhatsApp groups. Every neighbourhood has a recommendation engine. We tap them.</p>
+
+    <div class="grid2" style="margin-top:2.4rem">
+      <div class="card">
+        <h3>Phase 1 — First 100 clients</h3>
+        <ul class="clean" style="font-size:.92rem">
+          <li><strong>Warm network outreach.</strong> Start with known entrepreneurs — barbershops, boutiques, food vendors, importers, stylists, contractors. One client who talks is worth ten ads.</li>
+          <li><strong>Demo before pitch.</strong> Show it working in their vertical before they ask for a deck.</li>
+          <li><strong>Community seeding.</strong> Trade groups, alumni networks, entrepreneur WhatsApp groups. Live demo converts.</li>
+          <li><strong>Content engine.</strong> Before/after response time. Real transcripts. Shareable, provable, memorable.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Phase 2 — Channel expansion</h3>
+        <ul class="clean" style="font-size:.92rem">
+          <li><strong>USA SMBs.</strong> Texas, Georgia, Maryland — barbershops, salons, restaurants, contractors. High willingness to pay. WhatsApp growing fast.</li>
+          <li><strong>UK small businesses.</strong> London, Birmingham, Manchester — higher ARPU ($79–$99/mo), strong diaspora and immigrant business communities.</li>
+          <li><strong>Africa & diaspora.</strong> Nigeria, Ghana, South Africa — and operators running businesses across continents from a single WhatsApp number.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stats" style="margin-top:2.5rem">
+      <div class="stat"><div class="n">&lt;$25</div><div class="l">Target CAC (vs $150–$300 typical SaaS)</div></div>
+      <div class="stat"><div class="n">1 → 3</div><div class="l">Referral coefficient target</div></div>
+      <div class="stat"><div class="n">$0</div><div class="l">Paid acquisition budget</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITION -->
+<section>
+  <div class="wrap">
+    <h4>Competition</h4>
+    <h2>Everyone else sells software. We deliver an outcome.</h2>
+    <p class="lead">The SMB customer service space is fragmented and technically gated. Every existing solution requires the business owner to become a software user. They will not. The product that wins is the one that meets them inside WhatsApp with zero onboarding friction.</p>
+    <table>
+      <thead><tr><th>FMIFY</th><th>Everyone Else</th></tr></thead>
+      <tbody>
+        <tr><td>Owner chats updates like a WhatsApp group</td><td>Owner logs into a dashboard</td></tr>
+        <tr><td>Zero tech knowledge required</td><td>Requires setup, training, configuration</td></tr>
+        <tr><td>Customer agent runs under business's own brand</td><td>Generic bot or platform branding</td></tr>
+        <tr><td>Managed end-to-end by operator</td><td>Client self-manages — then churns</td></tr>
+        <tr><td>$49–$99/month flat</td><td>Tiers, per-message fees, setup costs</td></tr>
+        <tr><td>WhatsApp-native from day one</td><td>WhatsApp is an integration, not the foundation</td></tr>
+      </tbody>
+    </table>
+    <p class="footnote">The moat isn't the AI. The moat is the UX paradigm. Chat-to-update is so obvious, so aligned with existing behaviour, that a competitor would have to copy the exact product — and would still need to acquire community distribution.</p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <h2>The first product to get 1,000 satisfied small businesses becomes the default recommendation in every trade group, every city, every vertical.</h2>
+  <p class="sub">That's a durable position in a $11B market with no real SMB solution. Phase 1 is live. The category is open. Now we run.</p>
+  <div class="sig">Face-Me-I-Face-You · Ten30 Studio · May 2026</div>
+</section>
+
+</body>
+</html>
