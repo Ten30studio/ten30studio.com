@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — Face-Me-I-Face-You</title>
+<meta name="description" content="Tell us about your business. We'll set up your FMIFY agent — the AI that handles your customer conversations 24/7." />
+<style>
+  :root {
+    --bg: #0A0F1C; --panel: #11172B; --panel-2: #0E1424;
+    --ink: #F5F6F8; --ink-soft: #C3C9D6; --mute: #8089A1;
+    --line: #1F2A44; --accent: #D4A24A; --accent-soft: #F0CE89;
+    --good: #5CE0A2; --err: #F87171;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+
+  /* NAV */
+  nav {
+    padding: 1.4rem 2rem;
+    display: flex; align-items: center; gap: .6rem;
+    border-bottom: 1px solid var(--line);
+    font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--mute);
+  }
+  nav .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  nav a { color: var(--mute); }
+
+  /* LAYOUT */
+  .page { max-width: 720px; margin: 0 auto; padding: 5rem 1.5rem 8rem; }
+
+  /* HEADER */
+  .head { margin-bottom: 3.5rem; }
+  .badge {
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .3rem .75rem;
+    background: rgba(92,224,162,.08); border: 1px solid rgba(92,224,162,.3);
+    color: var(--good); border-radius: 999px;
+    font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+    margin-bottom: 1.4rem;
+  }
+  .badge .led { width: 6px; height: 6px; background: var(--good); border-radius: 50%; box-shadow: 0 0 10px rgba(92,224,162,.7); }
+  .head h1 {
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+    letter-spacing: -.03em; line-height: 1.1; margin-bottom: .6rem;
+  }
+  .head h1 span { color: var(--accent); }
+  .head p { font-size: 1.05rem; color: var(--ink-soft); max-width: 540px; line-height: 1.6; }
+
+  /* FORM */
+  form { display: flex; flex-direction: column; gap: 1.4rem; }
+
+  .field { display: flex; flex-direction: column; gap: .45rem; }
+  .field label {
+    font-size: .78rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .field .hint { font-size: .82rem; color: var(--mute); margin-top: -.2rem; }
+
+  input, textarea, select {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); color: var(--ink);
+    font-family: inherit; font-size: .97rem;
+    padding: .8rem 1rem; width: 100%;
+    transition: border-color .15s;
+    appearance: none;
+  }
+  input::placeholder, textarea::placeholder { color: var(--mute); }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(212,162,74,.12);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238089A1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+  select option { background: var(--panel-2); }
+
+  /* SECTION DIVIDERS */
+  .section-label {
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--mute); padding-bottom: .6rem;
+    border-bottom: 1px solid var(--line); margin-top: .6rem;
+  }
+
+  /* CHECKBOX GROUP */
+  .checks { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .2rem; }
+  .check-item { display: flex; align-items: center; gap: .5rem; }
+  .check-item input[type="checkbox"] {
+    width: 18px; height: 18px; padding: 0;
+    accent-color: var(--accent); cursor: pointer; flex-shrink: 0;
+  }
+  .check-item label {
+    font-size: .9rem; font-weight: 400; letter-spacing: 0;
+    text-transform: none; color: var(--ink-soft); cursor: pointer;
+  }
+
+  /* SUBMIT */
+  .submit-row { margin-top: .6rem; }
+  button[type="submit"] {
+    background: var(--accent); color: #0A0F1C;
+    border: none; border-radius: var(--radius);
+    font-family: inherit; font-size: 1rem; font-weight: 700;
+    padding: .9rem 2.4rem; cursor: pointer;
+    letter-spacing: .02em; transition: opacity .15s;
+    width: 100%;
+  }
+  button[type="submit"]:hover { opacity: .88; }
+  .submit-note { font-size: .8rem; color: var(--mute); margin-top: .7rem; text-align: center; }
+
+  /* SUCCESS STATE */
+  .success-box {
+    display: none;
+    background: var(--panel); border: 1px solid rgba(92,224,162,.3);
+    border-radius: 14px; padding: 2.5rem; text-align: center; margin-top: 2rem;
+  }
+  .success-box .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .success-box h2 { font-size: 1.5rem; margin-bottom: .5rem; }
+  .success-box p { color: var(--ink-soft); font-size: .95rem; }
+
+  @media (max-width: 600px) {
+    .page { padding: 3rem 1rem 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="dot"></span>
+  <a href="/">Ten30 Studios</a>
+  <span style="color:#1F2A44">·</span>
+  <a href="/fmify">FMIFY</a>
+  <span style="color:#1F2A44">·</span>
+  <span style="color: var(--ink)">Get Started</span>
+</nav>
+
+<div class="page">
+
+  <div class="head">
+    <div class="badge"><span class="led"></span> Free consultation · No commitment</div>
+    <h1>Let's build your <span>agent.</span></h1>
+    <p>Fill this in and we'll have everything we need to set up your Face-Me-I-Face-You — the AI that handles your customer conversations 24/7, under your brand's name.</p>
+  </div>
+
+  <form action="https://formsubmit.co/admin@ten30studio.com" method="POST" id="intake-form">
+
+    <!-- Honeypot -->
+    <input type="text" name="_honey" style="display:none">
+    <!-- Disable captcha -->
+    <input type="hidden" name="_captcha" value="false">
+    <!-- Subject line -->
+    <input type="hidden" name="_subject" value="🤝 New FMIFY Intake Submission">
+    <!-- Thank you redirect -->
+    <input type="hidden" name="_next" value="https://www.ten30studio.com/fmify-thanks">
+    <!-- Template -->
+    <input type="hidden" name="_template" value="table">
+
+    <p class="section-label">About you</p>
+
+    <div class="field">
+      <label for="name">Your full name *</label>
+      <input type="text" id="name" name="Full Name" placeholder="e.g. Hakeem Ajaguna" required>
+    </div>
+
+    <div class="field">
+      <label for="email">Email address *</label>
+      <input type="email" id="email" name="Email" placeholder="you@yourbusiness.com" required>
+    </div>
+
+    <div class="field">
+      <label for="phone">WhatsApp / phone number *</label>
+      <div class="hint">Include country code, e.g. +1 713 261 9304</div>
+      <input type="tel" id="phone" name="WhatsApp / Phone" placeholder="+1 713 261 9304" required>
+    </div>
+
+    <p class="section-label">About your business</p>
+
+    <div class="field">
+      <label for="biz-name">Business name *</label>
+      <input type="text" id="biz-name" name="Business Name" placeholder="e.g. Headmaster Lounge LLC" required>
+    </div>
+
+    <div class="field">
+      <label for="biz-type">Business type / industry *</label>
+      <select id="biz-type" name="Business Type" required>
+        <option value="" disabled selected>Select your industry…</option>
+        <option>Barbershop / Hair salon</option>
+        <option>Beauty / Nails / Spa</option>
+        <option>Restaurant / Food vendor</option>
+        <option>Retail / Boutique / Fashion</option>
+        <option>Gadgets / Electronics</option>
+        <option>Import / Export / Logistics</option>
+        <option>Construction / Contracting</option>
+        <option>Real estate</option>
+        <option>Healthcare / Clinic</option>
+        <option>Consulting / Professional services</option>
+        <option>Personal styling / Image consulting</option>
+        <option>Event planning</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="location">City & country *</label>
+      <input type="text" id="location" name="Location" placeholder="e.g. Richmond, Texas, USA" required>
+    </div>
+
+    <div class="field">
+      <label for="socials">Website or social media handle</label>
+      <div class="hint">Instagram, TikTok, Facebook, website — wherever customers find you</div>
+      <input type="text" id="socials" name="Website / Social" placeholder="e.g. @headmasterloungetx or headmasterlounge.com">
+    </div>
+
+    <p class="section-label">How customers reach you</p>
+
+    <div class="field">
+      <label>Where do most customer questions come in? *</label>
+      <div class="hint">Select all that apply</div>
+      <div class="checks">
+        <div class="check-item"><input type="checkbox" name="Channels" value="WhatsApp" id="ch-wa"><label for="ch-wa">WhatsApp</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="Instagram DM" id="ch-ig"><label for="ch-ig">Instagram DM</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="Phone calls" id="ch-ph"><label for="ch-ph">Phone calls</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="SMS / Text" id="ch-sms"><label for="ch-sms">SMS / Text</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="Facebook Messenger" id="ch-fb"><label for="ch-fb">Facebook Messenger</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="Website chat" id="ch-web"><label for="ch-web">Website chat</label></div>
+        <div class="check-item"><input type="checkbox" name="Channels" value="Walk-ins" id="ch-walk"><label for="ch-walk">Walk-ins</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="top-questions">Top 3–5 questions customers ask most *</label>
+      <div class="hint">Be specific — this is how we train your agent to answer them instantly</div>
+      <textarea id="top-questions" name="Top Customer Questions" placeholder="e.g.&#10;1. Are you taking walk-ins today?&#10;2. How much for a cut and beard trim?&#10;3. What are your hours Saturday?&#10;4. Do you do kids' cuts?" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="hours">Your business hours</label>
+      <div class="hint">Include days and times, any exceptions</div>
+      <textarea id="hours" name="Business Hours" placeholder="e.g. Mon–Fri 9am–7pm, Sat 9am–5pm, closed Sunday"></textarea>
+    </div>
+
+    <p class="section-label">Your agent</p>
+
+    <div class="field">
+      <label for="agent-name">What should your agent be called? *</label>
+      <div class="hint">This is the name customers will see when they message your business</div>
+      <input type="text" id="agent-name" name="Agent Name" placeholder="e.g. Headmaster Assistant, Temi, Farai's Stylist Bot…" required>
+    </div>
+
+    <div class="field">
+      <label for="agent-tone">Agent personality / tone</label>
+      <select id="agent-tone" name="Agent Tone">
+        <option value="" disabled selected>Choose a tone…</option>
+        <option>Professional and formal</option>
+        <option>Friendly and casual</option>
+        <option>Warm and personal</option>
+        <option>Brief and to the point</option>
+        <option>Match my own voice (describe below)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="anything-else">Anything else we should know?</label>
+      <div class="hint">Special services, delivery areas, payment methods, seasonal events, anything that would help us set up your agent right</div>
+      <textarea id="anything-else" name="Additional Info" placeholder="Tell us anything that makes your business unique…"></textarea>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit">Submit — let's build it ⚡</button>
+      <p class="submit-note">We'll review your submission and be in touch within 24 hours to confirm your setup.</p>
+    </div>
+
+  </form>
+
+</div>
+
+</body>
+</html>

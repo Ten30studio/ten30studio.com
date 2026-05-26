@@ -2,6 +2,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/start", "destination": "/start.html" },
+    { "source": "/fmify-thanks", "destination": "/fmify-thanks.html" },
     { "source": "/careflow", "destination": "/careflow/index.html" },
     { "source": "/careflow/", "destination": "/careflow/index.html" },
     { "source": "/careflow-birmingham", "destination": "/careflow-birmingham.html" },
