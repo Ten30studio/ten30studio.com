@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — FMIFY</title>
+<meta name="description" content="Tell us about your business. We'll build your FMIFY agent — the AI that handles your customer conversations 24/7." />
+<style>
+  :root {
+    --bg: #0A0F1C;
+    --panel: #11172B;
+    --panel-2: #0E1424;
+    --ink: #F5F6F8;
+    --ink-soft: #C3C9D6;
+    --mute: #8089A1;
+    --line: #1F2A44;
+    --accent: #D4A24A;
+    --accent-soft: #F0CE89;
+    --good: #5CE0A2;
+    --err: #F87171;
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: rgba(10, 15, 28, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(31, 42, 68, 0.6);
+    font-size: .75rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  nav .dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+  nav a { color: var(--mute); transition: color .15s; }
+  nav a:hover { color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 560px;
+    position: relative;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    min-height: 1.4rem;
+  }
+  .progress-label {
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--mute);
+    transition: opacity .3s;
+  }
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .progress-dots span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--line);
+    transition: background .4s, transform .3s;
+  }
+  .progress-dots span.done {
+    background: var(--accent);
+    opacity: .5;
+  }
+  .progress-dots span.active {
+    background: var(--accent);
+    opacity: 1;
+    transform: scale(1.35);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0;
+    transform: translateY(28px);
+    pointer-events: none;
+    transition: opacity .38s cubic-bezier(.4,0,.2,1), transform .38s cubic-bezier(.4,0,.2,1);
+    will-change: opacity, transform;
+  }
+  .card.active {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+  .card.exit-left {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+  }
+  .card.enter-from-back {
+    transform: translateY(-20px);
+  }
+
+  /* ── Q LABEL ── */
+  .q-label {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin-bottom: .75rem;
+    font-weight: 500;
+  }
+
+  /* ── Q TEXT ── */
+  .q-text {
+    font-size: clamp(1.5rem, 4.5vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .q-text .accent { color: var(--accent); }
+
+  /* ── INPUTS ── */
+  .input-wrap { margin-bottom: 1.75rem; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1.05rem;
+    padding: .9rem 1.1rem;
+    transition: border-color .18s, box-shadow .18s;
+    appearance: none;
+    -webkit-appearance: none;
+    resize: none;
+  }
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="tel"]::placeholder,
+  textarea::placeholder {
+    color: var(--mute);
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(212,162,74,.14);
+  }
+  textarea {
+    min-height: 130px;
+    line-height: 1.65;
+  }
+
+  /* ── CONTACT ROW (Q5) ── */
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ── CHANNEL BUTTONS ── */
+  .channel-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: 1.75rem;
+  }
+  .channel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .55rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: border-color .18s, background .18s, color .18s, transform .12s;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .channel-btn:hover {
+    border-color: rgba(212,162,74,.4);
+    color: var(--ink);
+  }
+  .channel-btn.selected {
+    border-color: var(--accent);
+    background: rgba(212,162,74,.10);
+    color: var(--accent-soft);
+  }
+  .channel-btn .ch-icon { font-size: 1rem; line-height: 1; }
+  .channel-hint {
+    font-size: .78rem;
+    color: var(--mute);
+    margin-bottom: .85rem;
+    margin-top: -.2rem;
+  }
+
+  /* ── CTA ROW ── */
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--accent);
+    color: #0A0F1C;
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: .97rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    padding: .8rem 1.75rem;
+    cursor: pointer;
+    transition: opacity .15s, transform .12s;
+    flex-shrink: 0;
+  }
+  .btn-next:hover { opacity: .88; transform: translateY(-1px); }
+  .btn-next:active { transform: translateY(0); }
+  .btn-next .arrow { font-style: normal; font-size: 1.1rem; }
+  .btn-next:disabled { opacity: .4; pointer-events: none; }
+
+  .btn-back {
+    background: none;
+    border: none;
+    color: var(--mute);
+    font-family: inherit;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: color .15s;
+    padding: .4rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+  .btn-back:hover { color: var(--ink-soft); }
+
+  /* ── CONFIRMATION ── */
+  #screen-confirm {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+  .confirm-mark {
+    width: 58px;
+    height: 58px;
+    background: rgba(92,224,162,.1);
+    border: 1px solid rgba(92,224,162,.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-size: 1.5rem;
+  }
+  .confirm-big {
+    font-size: clamp(1.65rem, 5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: .9rem;
+  }
+  .confirm-big .accent { color: var(--accent); }
+  .confirm-sub {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 420px;
+    margin: 0 auto 2rem;
+  }
+  .confirm-sig {
+    font-size: .8rem;
+    color: var(--mute);
+    letter-spacing: .04em;
+  }
+
+  /* ── DIVIDER LINE (decorative) ── */
+  .stage-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 2.5rem 0 0;
+    opacity: .5;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    nav { padding: 1rem 1.25rem; }
+    .shell { padding: 5rem 1.1rem 3rem; }
+    .cta-row { flex-direction: row; }
+    .channel-grid { gap: .5rem; }
+    .channel-btn { font-size: .84rem; padding: .5rem .85rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="dot"></span>
+  <a href="/fmify">· FMIFY</a>
+</nav>
+
+<!-- STAGE -->
+<div class="shell">
+  <div class="stage">
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-track" id="progress-track">
+      <div class="progress-label" id="progress-label">Question 1 of 5</div>
+      <div class="progress-dots" id="progress-dots">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ Q1 ═══════════════════════════════ -->
+    <div class="card active" id="q1">
+      <div class="q-label">Let's start simple.</div>
+      <div class="q-text">What's your business <span class="accent">called?</span></div>
+      <div class="input-wrap">
+        <input type="text" id="val-biz-name" autocomplete="organization"
+          placeholder="e.g. Crownford Energy, Iscooling DFW…"
+          autofocus>
+      </div>
+      <div class="cta-row">
+        <button class="btn-next" id="btn1" onclick="goNext(1)">
+          Continue <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ Q2 ═══════════════════════════════ -->
+    <div class="card" id="q2">
+      <div class="q-label">One line is fine.</div>
+      <div class="q-text">What does your business <span class="accent">do?</span></div>
+      <div class="input-wrap">
+        <input type="text" id="val-biz-type" autocomplete="off"
+          placeholder="e.g. HVAC contractor, Building compliance consultant, Herbal skincare…">
+      </div>
+      <div class="cta-row">
+        <button class="btn-back" onclick="goBack(2)">← Back</button>
+        <button class="btn-next" id="btn2" onclick="goNext(2)">
+          Continue <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ Q3 ═══════════════════════════════ -->
+    <div class="card" id="q3">
+      <div class="q-label">Pick all that apply.</div>
+      <div class="q-text">Where do your customers <span class="accent">reach you?</span></div>
+      <div class="channel-hint">Select everything that applies — even if you're not sure yet.</div>
+      <div class="channel-grid" id="channel-grid">
+        <button type="button" class="channel-btn" data-value="WhatsApp" onclick="toggleChannel(this)">
+          <span class="ch-icon">💬</span> WhatsApp
+        </button>
+        <button type="button" class="channel-btn" data-value="Instagram DM" onclick="toggleChannel(this)">
+          <span class="ch-icon">📸</span> Instagram DM
+        </button>
+        <button type="button" class="channel-btn" data-value="Facebook Messenger" onclick="toggleChannel(this)">
+          <span class="ch-icon">💙</span> Facebook Messenger
+        </button>
+        <button type="button" class="channel-btn" data-value="Website chat" onclick="toggleChannel(this)">
+          <span class="ch-icon">🌐</span> Website chat
+        </button>
+        <button type="button" class="channel-btn" data-value="Email" onclick="toggleChannel(this)">
+          <span class="ch-icon">✉️</span> Email
+        </button>
+        <button type="button" class="channel-btn" data-value="Not sure yet" onclick="toggleChannel(this)">
+          <span class="ch-icon">🤔</span> Not sure yet
+        </button>
+      </div>
+      <div class="cta-row">
+        <button class="btn-back" onclick="goBack(3)">← Back</button>
+        <button class="btn-next" id="btn3" onclick="goNext(3)">
+          Continue <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ Q4 ═══════════════════════════════ -->
+    <div class="card" id="q4">
+      <div class="q-label">These become your agent's core knowledge.</div>
+      <div class="q-text">What are the <span class="accent">top questions</span> your customers ask?</div>
+      <div class="input-wrap">
+        <textarea id="val-questions"
+          placeholder="e.g. How much does it cost? How long does it take? Do you cover my area?"></textarea>
+      </div>
+      <div class="cta-row">
+        <button class="btn-back" onclick="goBack(4)">← Back</button>
+        <button class="btn-next" id="btn4" onclick="goNext(4)">
+          Continue <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ Q5 ═══════════════════════════════ -->
+    <div class="card" id="q5">
+      <div class="q-label">Almost there.</div>
+      <div class="q-text">How do we <span class="accent">reach you?</span></div>
+      <div class="contact-row">
+        <input type="text" id="val-contact-name" autocomplete="name"
+          placeholder="Your name">
+        <input type="email" id="val-contact-email" autocomplete="email"
+          placeholder="Email address">
+        <input type="tel" id="val-contact-phone" autocomplete="tel"
+          placeholder="WhatsApp number (optional, include country code)">
+      </div>
+      <div class="cta-row">
+        <button class="btn-back" onclick="goBack(5)">← Back</button>
+        <button class="btn-next" id="btn5" onclick="submitIntake()">
+          Send it ⚡
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ CONFIRM ═══════════════════════════ -->
+    <div class="card" id="screen-confirm">
+      <div class="confirm-mark">⚡</div>
+      <div class="confirm-big">We're building your <span class="accent">agent.</span></div>
+      <div class="confirm-sub">
+        Expect a demo in your inbox within 3 days.<br>
+        If we have questions, we'll reach out first.
+      </div>
+      <div class="confirm-sig">— Kitt ⚡ | Ten30 Studios</div>
+    </div>
+
+    <div class="stage-divider" id="stage-divider"></div>
+
+  </div>
+</div>
+
+<!-- HIDDEN SUBMIT FORM (never visible) -->
+<form id="hidden-form" action="https://formsubmit.co/admin@ten30studio.com" method="POST" style="display:none">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" id="hf-subject" name="_subject" value="FMIFY Intake">
+  <input type="hidden" id="hf-biz-name" name="Business Name" value="">
+  <input type="hidden" id="hf-biz-type" name="Business Type" value="">
+  <input type="hidden" id="hf-channels" name="Customer Channels" value="">
+  <input type="hidden" id="hf-questions" name="Top Questions" value="">
+  <input type="hidden" id="hf-contact-name" name="Contact Name" value="">
+  <input type="hidden" id="hf-contact-email" name="Contact Email" value="">
+  <input type="hidden" id="hf-contact-phone" name="Contact WhatsApp" value="">
+</form>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────
+  var currentQ = 1;
+  var totalQ   = 5;
+  var selectedChannels = [];
+  var goingBack = false;
+
+  // ─── PROGRESS ────────────────────────────────────────────
+  function updateProgress(step) {
+    var label = document.getElementById('progress-label');
+    var dots  = document.getElementById('progress-dots').querySelectorAll('span');
+    var track = document.getElementById('progress-track');
+
+    if (step > totalQ) {
+      track.style.opacity = '0';
+      track.style.pointerEvents = 'none';
+      return;
+    }
+    track.style.opacity = '1';
+    track.style.pointerEvents = '';
+    label.textContent = 'Question ' + step + ' of ' + totalQ;
+    dots.forEach(function(d, i) {
+      d.className = '';
+      if (i < step - 1) d.classList.add('done');
+      else if (i === step - 1) d.classList.add('active');
+    });
+  }
+
+  // ─── SHOW CARD ───────────────────────────────────────────
+  function showCard(step) {
+    var cards = document.querySelectorAll('.card');
+    cards.forEach(function(c) {
+      c.classList.remove('active', 'exit-left', 'enter-from-back');
+    });
+
+    var target = document.getElementById(step > totalQ ? 'screen-confirm' : 'q' + step);
+    if (!target) return;
+
+    // Animate in
+    if (goingBack) {
+      target.style.transform = 'translateY(-20px)';
+    } else {
+      target.style.transform = 'translateY(28px)';
+    }
+    target.style.opacity = '0';
+    target.style.position = 'relative';
+    target.style.pointerEvents = 'all';
+
+    // Force reflow
+    void target.offsetWidth;
+
+    target.classList.add('active');
+    target.style.transform = '';
+    target.style.opacity = '';
+
+    // Focus first input
+    setTimeout(function() {
+      var inp = target.querySelector('input:not([type="hidden"]), textarea');
+      if (inp) inp.focus();
+    }, 380);
+
+    updateProgress(step);
+  }
+
+  // ─── CHANNEL TOGGLE ──────────────────────────────────────
+  function toggleChannel(btn) {
+    var val = btn.getAttribute('data-value');
+    var idx = selectedChannels.indexOf(val);
+    if (idx === -1) {
+      selectedChannels.push(val);
+      btn.classList.add('selected');
+    } else {
+      selectedChannels.splice(idx, 1);
+      btn.classList.remove('selected');
+    }
+  }
+
+  // ─── VALIDATE ────────────────────────────────────────────
+  function validateQ(step) {
+    if (step === 1) {
+      var v = document.getElementById('val-biz-name').value.trim();
+      if (!v) { shake('val-biz-name'); return false; }
+    }
+    if (step === 2) {
+      var v = document.getElementById('val-biz-type').value.trim();
+      if (!v) { shake('val-biz-type'); return false; }
+    }
+    if (step === 3) {
+      // Channels optional — allow pass-through
+    }
+    if (step === 4) {
+      var v = document.getElementById('val-questions').value.trim();
+      if (!v) { shake('val-questions'); return false; }
+    }
+    if (step === 5) {
+      var name  = document.getElementById('val-contact-name').value.trim();
+      var email = document.getElementById('val-contact-email').value.trim();
+      if (!name)  { shake('val-contact-name');  return false; }
+      if (!email) { shake('val-contact-email'); return false; }
+      if (!email.includes('@') || !email.includes('.')) {
+        shake('val-contact-email');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // ─── SHAKE ───────────────────────────────────────────────
+  function shake(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.borderColor = 'var(--err)';
+    el.style.boxShadow = '0 0 0 3px rgba(248,113,113,.16)';
+    el.animate([
+      { transform: 'translateX(0)' },
+      { transform: 'translateX(-6px)' },
+      { transform: 'translateX(6px)' },
+      { transform: 'translateX(-4px)' },
+      { transform: 'translateX(4px)' },
+      { transform: 'translateX(0)' }
+    ], { duration: 340, easing: 'ease-out' });
+    setTimeout(function() {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }, 1600);
+    el.focus();
+  }
+
+  // ─── NAV ─────────────────────────────────────────────────
+  function goNext(step) {
+    if (!validateQ(step)) return;
+    goingBack = false;
+    currentQ = step + 1;
+    showCard(currentQ);
+  }
+
+  function goBack(step) {
+    goingBack = true;
+    currentQ = step - 1;
+    showCard(currentQ);
+  }
+
+  // ─── SUBMIT ──────────────────────────────────────────────
+  function submitIntake() {
+    if (!validateQ(5)) return;
+
+    var bizName  = document.getElementById('val-biz-name').value.trim();
+    var bizType  = document.getElementById('val-biz-type').value.trim();
+    var channels = selectedChannels.join(', ') || 'Not specified';
+    var questions = document.getElementById('val-questions').value.trim();
+    var cName    = document.getElementById('val-contact-name').value.trim();
+    var cEmail   = document.getElementById('val-contact-email').value.trim();
+    var cPhone   = document.getElementById('val-contact-phone').value.trim();
+
+    // Populate hidden form
+    document.getElementById('hf-subject').value       = 'FMIFY Intake — ' + bizName;
+    document.getElementById('hf-biz-name').value      = bizName;
+    document.getElementById('hf-biz-type').value      = bizType;
+    document.getElementById('hf-channels').value      = channels;
+    document.getElementById('hf-questions').value     = questions;
+    document.getElementById('hf-contact-name').value  = cName;
+    document.getElementById('hf-contact-email').value = cEmail;
+    document.getElementById('hf-contact-phone').value = cPhone || 'Not provided';
+
+    // Show confirmation immediately — don't make user wait for server
+    goingBack = false;
+    currentQ = totalQ + 1;
+    showCard(currentQ);
+
+    // Fire and forget
+    try {
+      var form = document.getElementById('hidden-form');
+      var data = new FormData(form);
+      fetch(form.action, { method: 'POST', body: data });
+    } catch(e) {
+      // Silent — user already sees confirmation
+    }
+  }
+
+  // ─── ENTER KEY ───────────────────────────────────────────
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && currentQ <= totalQ) {
+      // Allow Shift+Enter for textarea (newline)
+      var active = document.getElementById('q' + currentQ);
+      if (!active) return;
+      var ta = active.querySelector('textarea');
+      if (ta && document.activeElement === ta && !e.shiftKey) {
+        e.preventDefault();
+        if (currentQ === totalQ) submitIntake();
+        else goNext(currentQ);
+      } else if (!ta) {
+        e.preventDefault();
+        if (currentQ === totalQ) submitIntake();
+        else goNext(currentQ);
+      }
+    }
+  });
+
+  // ─── INIT ────────────────────────────────────────────────
+  updateProgress(1);
+</script>
+
+</body>
+</html>
