@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FixPlug — Work, Wired Different</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D0D0D;
+      --bg-1:      #111111;
+      --bg-2:      #161616;
+      --bg-3:      #1C1C1C;
+      --amber:     #C8853A;
+      --amber-dim: #9D5E1F;
+      --amber-glow:#E89A4A;
+      --green:     #22C55E;
+      --green-dim: #15803D;
+      --white:     #F5F5F5;
+      --muted:     #888888;
+      --border:    rgba(200, 133, 58, 0.2);
+      --font:      -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      --mono:      "SF Mono", "Fira Code", "Courier New", monospace;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+      background: rgba(13, 13, 13, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--amber);
+    }
+
+    .nav-logo span { color: var(--white); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.4rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ===== SECTIONS ===== */
+    section { width: 100%; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 1.25rem 4rem;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% 0%, rgba(200,133,58,0.12) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      background: rgba(200,133,58,0.07);
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 8vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title .accent { color: var(--amber); }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    /* ===== PORTAL CARDS ===== */
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .portal-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.6rem 1.4rem;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      text-align: left;
+    }
+
+    .portal-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--amber);
+      box-shadow:
+        0 0 0 1px var(--amber),
+        0 8px 40px rgba(200, 133, 58, 0.22),
+        0 0 60px rgba(200, 133, 58, 0.08);
+    }
+
+    .portal-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .portal-card .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+
+    .portal-card .card-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .portal-card .card-cta {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section-pad {
+      padding: 5rem 1.25rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.65rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      line-height: 1.65;
+    }
+
+    /* ===== CUSTOMER SECTION ===== */
+    #customer {
+      background: var(--bg-1);
+    }
+
+    .form-card {
+      max-width: 520px;
+      margin: 2.5rem auto 0;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+    }
+
+    .form-row {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.45rem;
+    }
+
+    .form-row select,
+    .form-row input,
+    .form-row input[type="date"] {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9px;
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      padding: 0.7rem 0.95rem;
+      outline: none;
+      transition: border-color 0.18s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-row select:focus,
+    .form-row input:focus {
+      border-color: var(--amber);
+    }
+
+    .form-row select option { background: #222; }
+
+    .btn-amber {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber);
+      color: #0D0D0D;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.8rem 1.6rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-amber:hover {
+      background: var(--amber-glow);
+      box-shadow: 0 4px 24px rgba(200,133,58,0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--amber);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.78rem 1.6rem;
+      border: 1.5px solid var(--amber);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-outline:hover {
+      background: rgba(200,133,58,0.08);
+      box-shadow: 0 4px 20px rgba(200,133,58,0.25);
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-note {
+      margin-top: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.83rem;
+      color: var(--muted);
+      justify-content: center;
+    }
+
+    .whatsapp-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: #25D366;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    /* ===== PROVIDER SECTION ===== */
+    #provider {
+      background: var(--bg-2);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .step-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      position: relative;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(200,133,58,0.14);
+      border: 1px solid var(--amber-dim);
+      color: var(--amber);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+    }
+
+    .step-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-card p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ===== AGENTIC OFFICE ===== */
+    #agentic {
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #agentic::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(34,197,94,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .agent-dashboard {
+      margin-top: 2.5rem;
+      background: #0A0F0A;
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .dash-topbar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.2rem;
+      background: #0D130D;
+      border-bottom: 1px solid rgba(34,197,94,0.12);
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red   { background: #FF5F57; }
+    .dot-amber { background: #FEBC2E; }
+    .dot-green { background: #28C840; }
+
+    .dash-topbar span {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: #3D5C3D;
+      margin-left: 0.4rem;
+    }
+
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+    }
+
+    .agent-card {
+      padding: 1.2rem 1.25rem;
+      border-right: 1px solid rgba(34,197,94,0.1);
+      border-bottom: 1px solid rgba(34,197,94,0.1);
+    }
+
+    .agent-card:nth-child(2n) { border-right: none; }
+
+    @media (min-width: 640px) {
+      .agent-card:nth-child(2n) { border-right: 1px solid rgba(34,197,94,0.1); }
+      .agent-card:nth-child(4n) { border-right: none; }
+    }
+
+    .agent-status {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+
+    .agent-card h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .agent-card p {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: #5A8A5A;
+      line-height: 1.45;
+    }
+
+    /* Activity feed */
+    .feed-wrap {
+      border-top: 1px solid rgba(34,197,94,0.12);
+      padding: 1rem 1.25rem;
+    }
+
+    .feed-label {
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      color: #3D5C3D;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+
+    .feed-line {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      line-height: 1.8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .feed-line .ts    { color: #4A7A4A; }
+    .feed-line .agent { color: var(--amber); font-weight: 600; }
+    .feed-line .msg   { color: #88BB88; }
+
+    /* Cursor blink */
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: var(--green);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* Human queue */
+    .human-queue {
+      margin-top: 1.5rem;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .queue-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      background: rgba(200,133,58,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .queue-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .queue-header h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .queue-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: var(--amber);
+      color: #0D0D0D;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+
+    .queue-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.95rem 1.25rem;
+      gap: 1rem;
+    }
+
+    .queue-item-info { flex: 1; }
+
+    .queue-item-info strong {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .queue-item-info span {
+      font-size: 0.77rem;
+      color: var(--muted);
+    }
+
+    .btn-ghost {
+      flex-shrink: 0;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--amber);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.15s, border-color 0.15s;
+      font-family: var(--font);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(200,133,58,0.1);
+      border-color: var(--amber);
+    }
+
+    .agentic-note {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ===== PARTNER SECTION ===== */
+    #partner {
+      background: var(--bg-1);
+    }
+
+    .partner-header-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 560px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    .col-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.4rem;
+    }
+
+    .col-card.ai-col { border-color: rgba(34,197,94,0.22); }
+    .col-card.human-col { border-color: var(--border); }
+
+    .col-card h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .ai-col h4 { color: var(--green); }
+    .human-col h4 { color: var(--amber); }
+
+    .col-card ul {
+      list-style: none;
+    }
+
+    .col-card ul li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 0.32rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .col-card ul li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .ai-col ul li::before { background: var(--green); }
+    .human-col ul li::before { background: var(--amber); }
+
+    .partner-brands {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .brand-pill .dot-amber-sm {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .footer-sub a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .footer-divider {
+      width: 36px;
+      height: 1px;
+      background: var(--border);
+      margin: 1rem auto;
+    }
+
+    /* ===== UTILITY ===== */
+    .text-center { text-align: center; }
+    .mt-1  { margin-top: 0.75rem; }
+    .mt-2  { margin-top: 1.5rem; }
+    .mt-3  { margin-top: 2rem; }
+
+    /* Animate feed lines in */
+    .feed-line {
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .feed-line:nth-child(1) { animation-delay: 0.1s; }
+    .feed-line:nth-child(2) { animation-delay: 0.5s; }
+    .feed-line:nth-child(3) { animation-delay: 1.0s; }
+    .feed-line:nth-child(4) { animation-delay: 1.6s; }
+    .feed-line:nth-child(5) { animation-delay: 2.2s; }
+    .feed-line:nth-child(6) { animation-delay: 2.9s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Agent card stagger */
+    .agent-card {
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .agent-card:nth-child(1) { animation-delay: 0.05s; }
+    .agent-card:nth-child(2) { animation-delay: 0.15s; }
+    .agent-card:nth-child(3) { animation-delay: 0.25s; }
+    .agent-card:nth-child(4) { animation-delay: 0.35s; }
+
+    /* Pulse for different agents (offset so they don't all pulse in sync) */
+    .agent-card:nth-child(2) .pulse-dot { animation-delay: 0.45s; }
+    .agent-card:nth-child(3) .pulse-dot { animation-delay: 0.9s; }
+    .agent-card:nth-child(4) .pulse-dot { animation-delay: 1.35s; }
+
+    /* ===== SKILL VERIFICATION SECTION ===== */
+    #verification {
+      background: #111111;
+    }
+
+    .verify-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .verify-grid { grid-template-columns: 1fr; }
+    }
+
+    .verify-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .verify-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--amber);
+      box-shadow: 0 8px 32px rgba(200,133,58,0.18);
+    }
+
+    .verify-card--badge {
+      border-color: rgba(34,197,94,0.25);
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.1), 0 4px 24px rgba(34,197,94,0.08);
+    }
+
+    .verify-card--badge:hover {
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.4), 0 8px 40px rgba(34,197,94,0.2);
+      border-color: rgba(34,197,94,0.6);
+    }
+
+    .verify-icon {
+      font-size: 1.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .verify-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .verify-desc {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .verify-footer {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .verify-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== TEN30 ACADEMY SECTION ===== */
+    #academy {
+      background: #0D1F17;
+    }
+
+    .academy-badge {
+      display: inline-block;
+      padding: 0.28rem 0.85rem;
+      border: 1px solid rgba(200,133,58,0.35);
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      background: rgba(200,133,58,0.08);
+    }
+
+    .academy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .academy-grid { grid-template-columns: 1fr; }
+    }
+
+    .academy-col {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(200,133,58,0.18);
+      border-radius: 14px;
+      padding: 1.6rem 1.5rem;
+    }
+
+    .academy-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 1.1rem;
+    }
+
+    .academy-col ul {
+      list-style: none;
+    }
+
+    .academy-col ul li {
+      font-size: 0.86rem;
+      color: var(--muted);
+      padding: 0.32rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .academy-col ul li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    .pull-quote {
+      margin-top: 2.25rem;
+      border-left: 3px solid var(--amber);
+      padding: 1rem 1.25rem;
+      background: rgba(200,133,58,0.05);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .pull-quote p {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.65;
+    }
+
+    .academy-cta {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    .btn-amber-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber);
+      color: #0D0D0D;
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.95rem 2.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .btn-amber-lg:hover {
+      background: var(--amber-glow);
+      box-shadow: 0 6px 30px rgba(200,133,58,0.45);
+      transform: translateY(-2px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .form-card { padding: 1.4rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Fix<span>Plug</span></div>
+    <ul class="nav-links">
+      <li><a href="#customer">Customers</a></li>
+      <li><a href="#provider">Providers</a></li>
+      <li><a href="#agentic">Office</a></li>
+      <li><a href="#verification">Verify</a></li>
+      <li><a href="#academy">Academy</a></li>
+      <li><a href="#partner">Partners</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: HERO -->
+  <!-- ============================================================ -->
+  <section id="hero">
+    <div class="badge">Now building — Nigeria's AI-native service layer</div>
+
+    <h1 class="hero-title">
+      FixPlug<br/>
+      <span class="accent">Work, Wired Different.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Nigeria's first AI-native field service platform. Agents run the office.
+      Humans do the work. Three access points. One agentic backbone.
+    </p>
+
+    <div class="portal-grid">
+
+      <!-- Customer -->
+      <a class="portal-card" href="#customer">
+        <div class="icon">🔧</div>
+        <div class="card-title">Customer Portal</div>
+        <div class="card-desc">Request a service. Get a quote instantly. Pay. Track your job end-to-end.</div>
+        <div class="card-cta">Request a service →</div>
+      </a>
+
+      <!-- Provider -->
+      <a class="portal-card" href="#provider">
+        <div class="icon">👷</div>
+        <div class="card-title">Provider Portal</div>
+        <div class="card-desc">Get jobs matched to your skills. Show up. Get paid. No chasing, no guesswork.</div>
+        <div class="card-cta">Join the network →</div>
+      </a>
+
+      <!-- Agentic -->
+      <a class="portal-card" href="#agentic">
+        <div class="icon">⚡</div>
+        <div class="card-title">Staff &amp; Agentic Office</div>
+        <div class="card-desc">Where the AI runs. Agents dispatch, invoice, and report — automatically, 24/7.</div>
+        <div class="card-cta">See the office →</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: CUSTOMER PORTAL -->
+  <!-- ============================================================ -->
+  <section id="customer">
+    <div class="section-pad">
+      <div class="container text-center">
+        <div class="section-label">Customer Portal</div>
+        <h2 class="section-title">Request a Service</h2>
+        <p class="section-sub" style="margin: 0 auto;">
+          Tell us what you need, where you are, and when. Our agent generates
+          your quote and matches a verified provider — before you finish your tea.
+        </p>
+
+        <div class="form-card">
+          <div class="form-row">
+            <label>What do you need?</label>
+            <select>
+              <option value="" disabled selected>Select a service type</option>
+              <option>Electrical</option>
+              <option>Plumbing</option>
+              <option>AC / HVAC</option>
+              <option>Generator Repair</option>
+              <option>Solar Installation</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label>Where?</label>
+            <input type="text" placeholder="e.g. Victoria Island, Lagos" />
+          </div>
+
+          <div class="form-row">
+            <label>When?</label>
+            <input type="date" />
+          </div>
+
+          <button class="btn-amber" style="width:100%; justify-content:center;">
+            Get Instant Quote →
+          </button>
+
+          <div class="whatsapp-note">
+            <div class="whatsapp-icon">
+              <!-- WhatsApp icon SVG -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </div>
+            Your quote arrives via WhatsApp in under 2 minutes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: PROVIDER PORTAL -->
+  <!-- ============================================================ -->
+  <section id="provider">
+    <div class="section-pad">
+      <div class="container">
+        <div class="section-label">Provider Portal</div>
+        <h2 class="section-title">Join the FixPlug Network</h2>
+        <p class="section-sub">
+          Verified technicians. Transparent pay. No middlemen.
+          Our agent does the matchmaking — you focus on the craft.
+        </p>
+
+        <div class="steps-grid">
+
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Register</h3>
+            <p>Submit your trade, license, and service area. The onboarding agent verifies you. Takes 5 minutes.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Get Matched</h3>
+            <p>Our dispatch agent surfaces jobs near you based on skill and availability. Accept or decline — your choice.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Get Paid</h3>
+            <p>Job done, report back to the platform. Payment releases automatically. No chasing invoices. No delays.</p>
+          </div>
+
+        </div>
+
+        <div class="mt-3">
+          <button class="btn-amber">Join as a Provider →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 4: THE AGENTIC OFFICE -->
+  <!-- ============================================================ -->
+  <section id="agentic">
+    <div class="section-pad">
+      <div class="container">
+        <div class="section-label">Agentic Office</div>
+        <h2 class="section-title">The Office That Never Sleeps</h2>
+        <p class="section-sub">
+          AI agents run operations 24/7. Your human team handles what only humans can.
+          No missed jobs. No late invoices. No sleeping on dispatch.
+        </p>
+
+        <!-- Agent Dashboard -->
+        <div class="agent-dashboard">
+
+          <!-- Top bar (like a terminal chrome) -->
+          <div class="dash-topbar">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-amber"></div>
+            <div class="dot dot-green"></div>
+            <span>fixplug-agent-office — 4 agents running</span>
+          </div>
+
+          <!-- 4 Agent cards -->
+          <div class="agent-grid">
+
+            <div class="agent-card">
+              <div class="agent-status">
+                <div class="pulse-dot"></div>
+                RUNNING
+              </div>
+              <h4>Dispatch Agent</h4>
+              <p>Matching 3 jobs to<br/>providers right now...</p>
+            </div>
+
+            <div class="agent-card">
+              <div class="agent-status">
+                <div class="pulse-dot"></div>
+                RUNNING
+              </div>
+              <h4>Customer Comms Agent</h4>
+              <p>Sent 7 status updates<br/>today. 0 complaints.</p>
+            </div>
+
+            <div class="agent-card">
+              <div class="agent-status">
+                <div class="pulse-dot"></div>
+                RUNNING
+              </div>
+              <h4>Invoice Agent</h4>
+              <p>₦0 outstanding.<br/>12 invoices processed today.</p>
+            </div>
+
+            <div class="agent-card">
+              <div class="agent-status">
+                <div class="pulse-dot"></div>
+                RUNNING
+              </div>
+              <h4>Onboarding Agent</h4>
+              <p>2 new providers<br/>verified today.</p>
+            </div>
+
+          </div>
+
+          <!-- Live activity feed -->
+          <div class="feed-wrap">
+            <div class="feed-label">// live activity feed</div>
+
+            <div class="feed-line">
+              <span class="ts">[09:14]&nbsp;</span>
+              <span class="agent">Dispatch&nbsp;</span>
+              <span class="msg">→ Job #1042 matched to Emeka A. (Electrician, Lagos)</span>
+            </div>
+            <div class="feed-line">
+              <span class="ts">[09:15]&nbsp;</span>
+              <span class="agent">Comms&nbsp;&nbsp;&nbsp;</span>
+              <span class="msg">→ Customer notified. ETA 35 minutes.</span>
+            </div>
+            <div class="feed-line">
+              <span class="ts">[09:22]&nbsp;</span>
+              <span class="agent">Invoice&nbsp;&nbsp;</span>
+              <span class="msg">→ Job #1038 complete. ₦15,000 released to Chidi O.</span>
+            </div>
+            <div class="feed-line">
+              <span class="ts">[09:31]&nbsp;</span>
+              <span class="agent">Dispatch&nbsp;</span>
+              <span class="msg">→ New request: AC repair, Abuja. Scanning providers...</span>
+            </div>
+            <div class="feed-line">
+              <span class="ts">[09:33]&nbsp;</span>
+              <span class="agent">Dispatch&nbsp;</span>
+              <span class="msg">→ Matched to Fatima O. (HVAC Tech, Abuja). Awaiting acceptance.</span>
+            </div>
+            <div class="feed-line">
+              <span class="ts">[09:41]&nbsp;</span>
+              <span class="agent">Onboard&nbsp;&nbsp;</span>
+              <span class="msg">→ Tunde M. verified. License confirmed. Network active.<span class="cursor"></span></span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Human task queue -->
+        <div class="human-queue">
+          <div class="queue-header">
+            <div class="queue-header-left">
+              <h4>Awaiting Human Input</h4>
+              <div class="queue-badge">1</div>
+            </div>
+            <span style="font-size:0.72rem; color: var(--muted);">Everything else is handled.</span>
+          </div>
+          <div class="queue-item">
+            <div class="queue-item-info">
+              <strong>Customer dispute — Job #1039</strong>
+              <span>Customer reports incomplete work. Needs human review before payment release.</span>
+            </div>
+            <button class="btn-ghost">Assign →</button>
+          </div>
+        </div>
+
+        <p class="agentic-note">
+          Human workers log in, see their queue, execute, report back.<br/>
+          Agents handle everything else — around the clock.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 5: SKILL VERIFICATION -->
+  <!-- ============================================================ -->
+  <section id="verification">
+    <div class="section-pad">
+      <div class="container">
+        <div class="section-label">Skill Verification</div>
+        <h2 class="section-title">We Verify. So You Don't Have To.</h2>
+        <p class="section-sub">
+          Every FixPlug provider passes our skill verification before they touch a single job.
+        </p>
+
+        <div class="verify-grid">
+
+          <div class="verify-card">
+            <div class="verify-icon">📋</div>
+            <h3 class="verify-title">Aptitude Assessment</h3>
+            <p class="verify-desc">Verbal reasoning + quantitative aptitude. Not a trick — a real measure of problem-solving on the job.</p>
+          </div>
+
+          <div class="verify-card verify-card--trade">
+            <div class="verify-icon">🔧</div>
+            <h3 class="verify-title">Trade Skills Test</h3>
+            <p class="verify-desc">Scenario-based questions specific to your trade. Electrical. Plumbing. HVAC. Solar. Each one written for the real work.</p>
+          </div>
+
+          <div class="verify-card verify-card--badge">
+            <div class="verify-icon">✅</div>
+            <h3 class="verify-title">Verified Badge</h3>
+            <p class="verify-desc">Pass both stages and you earn the FixPlug Verified badge. Customers know. You get priority dispatch.</p>
+          </div>
+
+        </div>
+
+        <div class="verify-footer">
+          <p class="verify-note">Didn't pass? You're not out. You're in the queue for something better.</p>
+          <a href="#academy" class="btn-amber">Ten30 Academy →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: TEN30 ACADEMY -->
+  <!-- ============================================================ -->
+  <section id="academy">
+    <div class="section-pad">
+      <div class="container">
+
+        <div class="academy-badge">Powered by Ten30 Studios</div>
+        <div class="section-label">Ten30 Academy</div>
+        <h2 class="section-title">Ten30 Academy</h2>
+        <p class="section-sub">
+          The training arm of the FixPlug network. Upskill, re-certify, and come back stronger.
+        </p>
+
+        <div class="academy-grid">
+
+          <div class="academy-col">
+            <h4>For Providers</h4>
+            <ul>
+              <li>Short courses by trade (Electrical, Plumbing, HVAC, Solar, Generator)</li>
+              <li>Assessment prep: know what to expect before you test</li>
+              <li>Physical and digital delivery</li>
+              <li>Certificate on completion</li>
+            </ul>
+          </div>
+
+          <div class="academy-col">
+            <h4>For Businesses</h4>
+            <ul>
+              <li>Staff upskilling programmes</li>
+              <li>Trade certification compliance</li>
+              <li>Custom training for your team</li>
+              <li>FixPlug-verified output</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="pull-quote">
+          <p>"Anyone can claim a skill. FixPlug proves it — and builds it."</p>
+        </div>
+
+        <div class="academy-cta">
+          <a href="#" class="btn-amber-lg">Join the Waitlist</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 7: PARTNER / INVESTOR -->
+  <!-- ============================================================ -->
+  <section id="partner">
+    <div class="section-pad">
+      <div class="container">
+        <div class="section-label">Technology Partnership</div>
+        <h2 class="section-title">Built to Scale.</h2>
+        <p class="partner-header-sub">
+          FixPlug Ltd retains Ten30 Studios as technology partner.
+          Powered by the KITT intelligence stack.
+        </p>
+
+        <div class="partner-brands">
+          <div class="brand-pill">
+            <div class="dot-amber-sm"></div>
+            FixPlug Ltd
+          </div>
+          <div class="brand-pill">
+            <div class="dot-amber-sm"></div>
+            A Horizon Bond Group Company
+          </div>
+          <div class="brand-pill">
+            <div class="dot-amber-sm"></div>
+            Technology by Ten30 Studios
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="col-card ai-col">
+            <h4>🤖 What AI Does</h4>
+            <ul>
+              <li>Job dispatch &amp; provider matching</li>
+              <li>Instant quote generation</li>
+              <li>Invoice processing &amp; payment release</li>
+              <li>Customer communications</li>
+              <li>Provider onboarding &amp; verification</li>
+              <li>Compliance checks &amp; flagging</li>
+              <li>Reporting &amp; performance analytics</li>
+            </ul>
+          </div>
+          <div class="col-card human-col">
+            <h4>👷 What Humans Do</h4>
+            <ul>
+              <li>Site visits &amp; physical installations</li>
+              <li>Electrical, plumbing, HVAC repairs</li>
+              <li>Quality sign-off on complex jobs</li>
+              <li>Relationship escalations</li>
+              <li>Dispute resolution &amp; exceptions</li>
+              <li>Provider community building</li>
+              <li>Strategic business decisions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn-outline">Partner Access →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 6: FOOTER -->
+  <!-- ============================================================ -->
+  <footer>
+    <div class="footer-logo">FixPlug</div>
+    <div class="footer-sub">
+      FixPlug Ltd &nbsp;|&nbsp; A Horizon Bond Group Company<br/>
+      Technology by <a href="#">Ten30 Studios</a><br/>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-sub">
+      <a href="#">fixplug.app</a>
+      &nbsp;&middot;&nbsp;
+      <span style="color:#444">© 2026 FixPlug Ltd. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- ===== JS: Smooth scroll + minor UX ===== -->
+  <script>
+    // Smooth scroll for all anchor links (belt + suspenders for older Safari)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Intersection observer to re-trigger feed animations when section is visible
+    const agenticSection = document.querySelector('#agentic');
+    const feedLines = document.querySelectorAll('.feed-line');
+    const agentCards = document.querySelectorAll('.agent-card');
+
+    let triggered = false;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !triggered) {
+          triggered = true;
+          // Reset and replay animations
+          [...feedLines, ...agentCards].forEach(el => {
+            el.style.animation = 'none';
+            el.offsetHeight; // force reflow
+            el.style.animation = '';
+          });
+        }
+      });
+    }, { threshold: 0.25 });
+
+    if (agenticSection) observer.observe(agenticSection);
+
+    // Nav active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 80;
+        if (window.scrollY >= top) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current
+          ? 'var(--amber)'
+          : '';
+      });
+    }, { passive: true });
+
+    // Set default date input to today
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    dateInputs.forEach(inp => inp.setAttribute('min', today));
+  </script>
+
+</body>
+</html>
