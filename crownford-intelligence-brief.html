@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crownford Intelligence — AI Compliance Platform</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --surface: #111418;
+      --surface-raised: #171c22;
+      --border: #1e2530;
+      --accent: #1a6b4a;
+      --accent-light: #22a870;
+      --accent-glow: rgba(34, 168, 112, 0.12);
+      --text: #e8edf2;
+      --text-secondary: #8a96a4;
+      --text-muted: #4a5568;
+      --tag-bg: #0f1f17;
+      --tag-border: #1a3d2b;
+      --gold: #c9a84c;
+      --gold-light: #e8c46a;
+      --coming-soon: #1a1f2b;
+      --coming-soon-border: #252d3d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+
+    .logo-sub {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .header-badge {
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--accent-light);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 2rem 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(34, 168, 112, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      color: var(--accent-light);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      color: #fff;
+    }
+
+    .hero h1 span {
+      color: var(--accent-light);
+    }
+
+    .hero-desc {
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Layout ── */
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* ── What It Does ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .overview-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .overview-card:hover {
+      border-color: var(--accent);
+    }
+
+    .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── Capabilities ── */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .capability-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+
+    .capability-check {
+      color: var(--accent-light);
+      font-size: 0.9rem;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+
+    .capability-text {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* ── Standards Knowledge Base ── */
+    .standards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .standards-category {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .standards-category-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-light);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .standards-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .tag.highlight {
+      background: rgba(34, 168, 112, 0.08);
+      border-color: rgba(34, 168, 112, 0.25);
+      color: var(--accent-light);
+    }
+
+    /* ── Phase 2 Preview ── */
+    .phase2-block {
+      background: var(--coming-soon);
+      border: 1px solid var(--coming-soon-border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase2-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      color: var(--gold-light);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .phase2-block h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .phase2-block p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+      line-height: 1.65;
+    }
+
+    .phase2-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .phase2-tag {
+      background: rgba(201, 168, 76, 0.05);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+    }
+
+    .phase2-price {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201, 168, 76, 0.07);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+    }
+
+    .phase2-price span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .phase2-price strong {
+      font-size: 0.9rem;
+      color: var(--gold-light);
+    }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(160deg, rgba(34, 168, 112, 0.05) 0%, var(--surface) 100%);
+    }
+
+    .pricing-card.featured::after {
+      content: 'Recommended';
+      position: absolute;
+      top: -1px;
+      right: 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .pricing-option {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .pricing-amount {
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-amount .amount {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+
+    .pricing-amount .period {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .pricing-setup {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .pricing-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.25rem 0;
+    }
+
+    .pricing-features {
+      list-style: none;
+    }
+
+    .pricing-features li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pricing-features li::before {
+      content: '→';
+      color: var(--accent-light);
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      text-align: center;
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 250px;
+      background: radial-gradient(ellipse, rgba(34, 168, 112, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-block h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-block p {
+      color: var(--text-secondary);
+      font-size: 1.0rem;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.65;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-light);
+      color: #000;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: #2dc982;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-left strong {
+      color: var(--text-secondary);
+    }
+
+    .footer-right {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Divider utility ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 56px 1.25rem 48px;
+      }
+      .hero-stats {
+        gap: 2rem;
+      }
+      .content {
+        padding: 0 1.25rem;
+      }
+      .phase2-block {
+        padding: 1.75rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">CI</div>
+        <div>
+          <div class="logo-text">Crownford Intelligence</div>
+          <div class="logo-sub">Crownford Energy &amp; Building Compliance</div>
+        </div>
+      </div>
+      <div class="header-badge">Phase 1 — Live Preview</div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-eyebrow">AI-Powered Technical Compliance Platform</div>
+    <h1>Expert-level compliance.<br/><span>Available instantly.</span></h1>
+    <p class="hero-desc">
+      Crownford Intelligence is a specialist AI platform built for UK building compliance and sustainability professionals. It operates at the level of a principal-grade consultant — covering regulations, standards, energy methodology, and drafting in a single tool.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">2–3h</div>
+        <div class="stat-label">Daily time saved</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">50+</div>
+        <div class="stat-label">Standards covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">&lt;30s</div>
+        <div class="stat-label">Typical query response</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">UK-focused</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What It Does -->
+  <section>
+    <div class="content">
+      <div class="section-label">What It Does</div>
+      <h2 class="section-title">A Technical Compliance Assistant built for professionals</h2>
+      <p class="section-desc">
+        Crownford Intelligence handles the research, interpretation, and drafting work that consumes hours of a consultant's day — at the depth and accuracy level your professional reputation demands.
+      </p>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="card-icon">📋</div>
+          <div class="card-title">Regulatory Interpretation</div>
+          <div class="card-desc">Instant, clause-level answers on UK Building Regulations, planning policy, and technical standards — with cross-references surfaced automatically.</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon">✍️</div>
+          <div class="card-title">Technical Drafting</div>
+          <div class="card-desc">Compliance narratives, specification wording, sustainability statements, and client responses — drafted to professional standard, ready to submit.</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon">⚖️</div>
+          <div class="card-title">Conflicting Guidance Resolution</div>
+          <div class="card-desc">Where standards overlap or conflict, the assistant identifies precedence, explains scope differences, and recommends a defensible compliance pathway.</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon">🔢</div>
+          <div class="card-title">Calculation Methodology</div>
+          <div class="card-desc">SAP, SBEM, U-value, thermal bridging, overheating assessment, BRUKL — step-by-step methodology guidance with reference standards cited throughout.</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon">✅</div>
+          <div class="card-title">Compliance Checklists</div>
+          <div class="card-desc">Generate structured, version-correct checklists for BREEAM, Part L, Passivhaus, LEED, WELL, or any project-specific requirement.</div>
+        </div>
+        <div class="overview-card">
+          <div class="card-icon">📡</div>
+          <div class="card-title">Regulatory Intelligence</div>
+          <div class="card-desc">Flags live consultations, amendments, and upcoming changes across the standards that matter to your practice — before they become compliance gaps.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section>
+    <div class="content">
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">What you can ask it</h2>
+      <p class="section-desc">Built for the real workload of a Senior Sustainability Consultant. Every capability is grounded in the standards Crownford works to.</p>
+      <div class="capabilities-grid">
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Answer technical compliance queries with clause-level references</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Interpret and compare overlapping or conflicting guidance</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Draft technical reports, EPC narratives, and sustainability statements</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Generate specification wording and compliance narratives</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Support QA reviews of energy models and calculation packs</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Produce BREEAM, LEED, NABERS, WELL, Passivhaus checklists</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Explain SAP 10.2, SBEM, DSM, and BRUKL methodology</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Guide TM59 and TM52 overheating assessment pathways</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Draft client-facing responses to Building Control queries</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Support embodied carbon (RICS WLC, EN15978, GLA) assessments</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Explain PAS 2035/2030 retrofit requirements and compliance</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Summarise GLA Energy Assessment and London Plan requirements</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Advise on Building Safety Act duties for Higher-Risk Buildings</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Support daylight/sunlight assessments against BRE 209</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Guide MCS/MIS 3005 heat pump design compliance</span>
+        </div>
+        <div class="capability-item">
+          <span class="capability-check">✓</span>
+          <span class="capability-text">Flag regulatory updates, amendments, and active consultations</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Standards Knowledge Base -->
+  <section>
+    <div class="content">
+      <div class="section-label">Standards Knowledge Base</div>
+      <h2 class="section-title">The regulations it knows</h2>
+      <p class="section-desc">
+        Crownford Intelligence is trained across every major UK and international standard relevant to building compliance, sustainability, and energy performance. No lookups. No summaries from secondary sources.
+      </p>
+      <div class="standards-grid">
+
+        <div class="standards-category">
+          <div class="standards-category-title">UK Building Regulations</div>
+          <div class="standards-tags">
+            <span class="tag highlight">Part L (2021)</span>
+            <span class="tag highlight">Part O (2021)</span>
+            <span class="tag highlight">Part F (2021)</span>
+            <span class="tag">Part G</span>
+            <span class="tag">Part B</span>
+            <span class="tag">Part E</span>
+            <span class="tag">Part S</span>
+            <span class="tag">Part M</span>
+            <span class="tag highlight">Building Safety Act 2022</span>
+            <span class="tag">HRB Gateway Process</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Energy Methodology</div>
+          <div class="standards-tags">
+            <span class="tag highlight">SAP 10.2</span>
+            <span class="tag">SAP Conventions</span>
+            <span class="tag">RdSAP</span>
+            <span class="tag highlight">SBEM</span>
+            <span class="tag highlight">DSM</span>
+            <span class="tag">EPC Methodology</span>
+            <span class="tag highlight">BRUKL</span>
+            <span class="tag">NCM</span>
+            <span class="tag">Thermal Bridging / PSI</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">CIBSE Guidance</div>
+          <div class="standards-tags">
+            <span class="tag highlight">TM52</span>
+            <span class="tag">TM54</span>
+            <span class="tag highlight">TM59</span>
+            <span class="tag highlight">TM49</span>
+            <span class="tag">Guide A</span>
+            <span class="tag">Guide B</span>
+            <span class="tag">Guide C</span>
+            <span class="tag">Guide F</span>
+            <span class="tag">Guide M</span>
+            <span class="tag highlight">CP1 Heat Networks</span>
+            <span class="tag">AM15 Heat Pumps</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">ASHRAE</div>
+          <div class="standards-tags">
+            <span class="tag">ASHRAE 55</span>
+            <span class="tag">ASHRAE 62.1</span>
+            <span class="tag">ASHRAE 62.2</span>
+            <span class="tag">ASHRAE 90.1</span>
+            <span class="tag">ASHRAE 189.1</span>
+            <span class="tag">Fundamentals Handbook</span>
+            <span class="tag">HVAC Applications</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">LETI Guidance</div>
+          <div class="standards-tags">
+            <span class="tag highlight">Climate Emergency Design Guide</span>
+            <span class="tag">Operational Energy Guide</span>
+            <span class="tag">Embodied Carbon Primer</span>
+            <span class="tag">Retrofit Guide</span>
+            <span class="tag">Net Zero Framework</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">BRE Publications</div>
+          <div class="standards-tags">
+            <span class="tag highlight">BRE 209 Daylight &amp; Sunlight</span>
+            <span class="tag">Domestic Ventilation</span>
+            <span class="tag">Thermal Performance</span>
+            <span class="tag">Moisture &amp; Condensation</span>
+            <span class="tag">Whole Life Carbon</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">BS &amp; European Standards</div>
+          <div class="standards-tags">
+            <span class="tag">BS 5250:2021</span>
+            <span class="tag">BS EN ISO 13788</span>
+            <span class="tag highlight">BS EN ISO 6946</span>
+            <span class="tag highlight">BS EN ISO 10211</span>
+            <span class="tag">BS EN ISO 52016</span>
+            <span class="tag highlight">PAS 2035:2023</span>
+            <span class="tag">PAS 2030:2023</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Embodied Carbon</div>
+          <div class="standards-tags">
+            <span class="tag highlight">RICS WLC 2nd Ed (2023)</span>
+            <span class="tag">EN 15978</span>
+            <span class="tag">LETI Embodied Carbon</span>
+            <span class="tag">UKGBC Net Zero Roadmap</span>
+            <span class="tag highlight">GLA WLC Guidance</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Certifications</div>
+          <div class="standards-tags">
+            <span class="tag highlight">BREEAM</span>
+            <span class="tag">NABERS UK</span>
+            <span class="tag highlight">Passivhaus (PHI)</span>
+            <span class="tag">WELL v2</span>
+            <span class="tag">Fitwel</span>
+            <span class="tag">LEED v4.1</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Acoustics &amp; Fire</div>
+          <div class="standards-tags">
+            <span class="tag">BS 8233:2014</span>
+            <span class="tag">ProPG (2017)</span>
+            <span class="tag">WHO Noise Guidelines</span>
+            <span class="tag">ANC Guidance</span>
+            <span class="tag">AD Part B</span>
+            <span class="tag">BS 9999:2017</span>
+            <span class="tag">BS 9991:2015+A1</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Planning &amp; London Policy</div>
+          <div class="standards-tags">
+            <span class="tag highlight">London Plan (2021)</span>
+            <span class="tag highlight">GLA Energy Assessment 2022</span>
+            <span class="tag">Net Zero Planning</span>
+            <span class="tag">Sustainability Statements</span>
+            <span class="tag">Carbon Offset Payments</span>
+          </div>
+        </div>
+
+        <div class="standards-category">
+          <div class="standards-category-title">Heat Pumps &amp; HVAC</div>
+          <div class="standards-tags">
+            <span class="tag">MCS Certification</span>
+            <span class="tag highlight">MIS 3005</span>
+            <span class="tag">BS EN 12831</span>
+            <span class="tag">CIBSE AM15</span>
+            <span class="tag">SCOP / COP methodology</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 2 Preview -->
+  <section>
+    <div class="content">
+      <div class="section-label">Phase 2</div>
+      <h2 class="section-title">Coming next: Sales &amp; Business Development Agent</h2>
+      <p class="section-desc">Phase 1 is your technical engine. Phase 2 makes Crownford Intelligence a full commercial platform — proactively generating pipeline while you deliver.</p>
+      <div class="phase2-block">
+        <div class="coming-soon-badge">Coming Soon — Quote on Request</div>
+        <h3>Crownford Intelligence: Sales &amp; BD Agent</h3>
+        <p>An autonomous business development agent that monitors the UK planning pipeline, identifies new opportunities, qualifies leads, and initiates outreach — operating continuously in the background.</p>
+        <div class="phase2-features">
+          <span class="phase2-tag">UK Planning Portal Monitoring</span>
+          <span class="phase2-tag">LinkedIn Intelligence</span>
+          <span class="phase2-tag">Companies House Data</span>
+          <span class="phase2-tag">Automated Outreach Sequences</span>
+          <span class="phase2-tag">AI Proposal Generation</span>
+          <span class="phase2-tag">Lead Scoring &amp; Pipeline</span>
+        </div>
+        <div class="phase2-price">
+          <span>Full Dual Platform:</span>
+          <strong>£3,999 setup + £799/mo</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section>
+    <div class="content">
+      <div class="section-label">Pricing — Phase 1</div>
+      <h2 class="section-title">Technical Compliance Assistant</h2>
+      <p class="section-desc">Enterprise pricing for professional practices. Recovers 2–3 hours of consultant time per day.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-option">Monthly Subscription</div>
+          <div class="pricing-amount">
+            <span class="amount">£499</span><span class="period">/mo</span>
+          </div>
+          <div class="pricing-setup">No setup fee. Start immediately.</div>
+          <hr class="pricing-divider" />
+          <ul class="pricing-features">
+            <li>Full Technical Compliance Assistant access</li>
+            <li>All 50+ standards knowledge base</li>
+            <li>Unlimited queries and drafts</li>
+            <li>Ongoing model updates</li>
+            <li>Cancel anytime</li>
+          </ul>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-option">Setup + Retained</div>
+          <div class="pricing-amount">
+            <span class="amount">£299</span><span class="period">/mo</span>
+          </div>
+          <div class="pricing-setup">After £1,999 setup fee. Save £200/mo from month 10.</div>
+          <hr class="pricing-divider" />
+          <ul class="pricing-features">
+            <li>Full Technical Compliance Assistant access</li>
+            <li>Custom onboarding and configuration</li>
+            <li>Crownford-specific workflow tuning</li>
+            <li>Priority support and updates</li>
+            <li>Phase 2 upgrade path available</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <h2>Ready for your preview</h2>
+    <p>Crownford Intelligence is configured and ready for Henry to test. Request access to start a live session today.</p>
+    <div class="cta-buttons">
+      <a href="mailto:admin@ten30studio.com?subject=Crownford Intelligence — Preview Request" class="btn-primary">Request Live Preview</a>
+      <a href="mailto:admin@ten30studio.com?subject=Crownford Intelligence — Phase 2 Quote" class="btn-secondary">Quote Phase 2</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <strong>Crownford Intelligence</strong> — Built by Ten30 Studios for Crownford Energy &amp; Building Compliance
+      </div>
+      <div class="footer-right">
+        Confidential — prepared for Henry Onabanjo
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
