@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/start",
-      "destination": "/start.html"
+      "destination": "/start-v2.html"
     },
     {
       "source": "/fmify-thanks",

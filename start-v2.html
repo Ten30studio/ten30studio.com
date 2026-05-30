@@ -227,6 +227,7 @@
     transition: border-color .18s, background .18s, color .18s, transform .12s;
     user-select: none;
     -webkit-user-select: none;
+    position: relative;
   }
   .channel-btn:hover {
     border-color: rgba(212,162,74,.4);
@@ -237,6 +238,38 @@
     background: rgba(212,162,74,.10);
     color: var(--accent-soft);
   }
+  .channel-btn.live-channel {
+    border-color: rgba(92,224,162,.4);
+    color: var(--good);
+  }
+  .channel-btn.live-channel:hover {
+    border-color: rgba(92,224,162,.7);
+  }
+  .channel-btn.live-channel.selected {
+    border-color: var(--good);
+    background: rgba(92,224,162,.10);
+    color: var(--good);
+  }
+  .channel-btn.coming-soon {
+    opacity: .55;
+    cursor: default;
+  }
+  .channel-btn.coming-soon:hover {
+    border-color: var(--line);
+    color: var(--ink-soft);
+    transform: none;
+  }
+  .ch-badge {
+    font-size: .6rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: .1rem .4rem;
+    border-radius: 999px;
+    margin-left: .15rem;
+  }
+  .ch-badge.live { background: rgba(92,224,162,.15); color: var(--good); }
+  .ch-badge.soon { background: rgba(125,184,255,.12); color: #7DB8FF; }
   .channel-btn .ch-icon { font-size: 1rem; line-height: 1; }
   .channel-hint {
     font-size: .78rem;
@@ -339,10 +372,19 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 480px) {
     nav { padding: 1rem 1.25rem; }
-    .shell { padding: 5rem 1.1rem 3rem; }
+    .shell { padding: 5rem 1rem 3rem; }
     .cta-row { flex-direction: row; }
     .channel-grid { gap: .5rem; }
     .channel-btn { font-size: .84rem; padding: .5rem .85rem; }
+    /* prevent iOS auto-zoom on focus */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea { font-size: 16px; }
+    textarea { min-height: 110px; }
+    .q-text { font-size: clamp(1.3rem, 6vw, 2rem); margin-bottom: 1.4rem; }
+    .btn-next { padding: .75rem 1.4rem; font-size: .93rem; }
+    .card { padding: 1.4rem 1.2rem; }
   }
 </style>
 </head>
@@ -406,22 +448,22 @@
     <div class="card" id="q3">
       <div class="q-label">Pick all that apply.</div>
       <div class="q-text">Where do your customers <span class="accent">reach you?</span></div>
-      <div class="channel-hint">Select everything that applies — even if you're not sure yet.</div>
+      <div class="channel-hint">Website chat is live now. Select others to register your interest — they're coming soon.</div>
       <div class="channel-grid" id="channel-grid">
-        <button type="button" class="channel-btn" data-value="WhatsApp" onclick="toggleChannel(this)">
-          <span class="ch-icon">💬</span> WhatsApp
+        <button type="button" class="channel-btn live-channel" data-value="Website chat" onclick="toggleChannel(this)">
+          <span class="ch-icon">🌐</span> Website chat <span class="ch-badge live">Live</span>
         </button>
-        <button type="button" class="channel-btn" data-value="Instagram DM" onclick="toggleChannel(this)">
-          <span class="ch-icon">📸</span> Instagram DM
+        <button type="button" class="channel-btn coming-soon" data-value="WhatsApp" onclick="toggleChannel(this)">
+          <span class="ch-icon">💬</span> WhatsApp <span class="ch-badge soon">Soon</span>
         </button>
-        <button type="button" class="channel-btn" data-value="Facebook Messenger" onclick="toggleChannel(this)">
-          <span class="ch-icon">💙</span> Facebook Messenger
+        <button type="button" class="channel-btn coming-soon" data-value="Instagram DM" onclick="toggleChannel(this)">
+          <span class="ch-icon">📸</span> Instagram DM <span class="ch-badge soon">Soon</span>
         </button>
-        <button type="button" class="channel-btn" data-value="Website chat" onclick="toggleChannel(this)">
-          <span class="ch-icon">🌐</span> Website chat
+        <button type="button" class="channel-btn coming-soon" data-value="Facebook Messenger" onclick="toggleChannel(this)">
+          <span class="ch-icon">💙</span> Messenger <span class="ch-badge soon">Soon</span>
         </button>
-        <button type="button" class="channel-btn" data-value="Email" onclick="toggleChannel(this)">
-          <span class="ch-icon">✉️</span> Email
+        <button type="button" class="channel-btn coming-soon" data-value="Email" onclick="toggleChannel(this)">
+          <span class="ch-icon">✉️</span> Email <span class="ch-badge soon">Soon</span>
         </button>
         <button type="button" class="channel-btn" data-value="Not sure yet" onclick="toggleChannel(this)">
           <span class="ch-icon">🤔</span> Not sure yet
@@ -476,7 +518,7 @@
       <div class="confirm-mark">⚡</div>
       <div class="confirm-big">We're building your <span class="accent">agent.</span></div>
       <div class="confirm-sub">
-        Expect a demo in your inbox within 3 days.<br>
+        Expect your agent link within 24–48 hours.<br>
         If we have questions, we'll reach out first.
       </div>
       <div class="confirm-sig">— Kitt ⚡ | Ten30 Studios</div>
