@@ -8,7 +8,7 @@
     { "source": "/fmify.html",       "destination": "https://getfmify.com/",       "permanent": true },
     { "source": "/fmify-scale",      "destination": "https://getfmify.com/scale",  "permanent": true },
     { "source": "/fmify-scale.html", "destination": "https://getfmify.com/scale",  "permanent": true },
-    { "source": "/fmify-thanks",     "destination": "https://getfmify.com/thanks", "permanent": true },
-    { "source": "/fmify-thanks.html","destination": "https://getfmify.com/thanks", "permanent": true }
+    { "source": "/fmify-thanks",     "destination": "https://getfmify.com/", "permanent": true },
+    { "source": "/fmify-thanks.html","destination": "https://getfmify.com/", "permanent": true }
   ]
 }
