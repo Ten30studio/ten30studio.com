@@ -1,58 +1,14 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/start",
-      "destination": "/start-v2.html"
-    },
-    {
-      "source": "/fmify-thanks",
-      "destination": "/fmify-thanks.html"
-    },
-    {
-      "source": "/careflow",
-      "destination": "/careflow/index.html"
-    },
-    {
-      "source": "/careflow/",
-      "destination": "/careflow/index.html"
-    },
-    {
-      "source": "/careflow-birmingham",
-      "destination": "/careflow-birmingham.html"
-    },
-    {
-      "source": "/careflow-sutton-coldfield",
-      "destination": "/careflow-sutton-coldfield.html"
-    },
-    {
-      "source": "/careflow-west-midlands",
-      "destination": "/careflow-west-midlands.html"
-    },
-    {
-      "source": "/careflow/:path*",
-      "destination": "/careflow/:path*.html"
-    },
-    {
-      "source": "/fmify-scale",
-      "destination": "/fmify-scale.html"
-    },
-    {
-      "source": "/crownford-intelligence",
-      "destination": "/crownford-intelligence-brief.html"
-    },
-    {
-      "source": "/crownford-demo",
-      "destination": "/crownford-demo.html"
-    },
-    {
-      "source": "/data-deletion",
-      "destination": "/data-deletion.html"
-    },
-    {
-      "source": "/ogunscan-demo",
-      "destination": "/ogunscan-demo.html"
-    }
+  "redirects": [
+    { "source": "/start",            "destination": "https://getfmify.com/start",  "permanent": true },
+    { "source": "/start.html",       "destination": "https://getfmify.com/start",  "permanent": true },
+    { "source": "/start-v2",         "destination": "https://getfmify.com/start",  "permanent": true },
+    { "source": "/start-v2.html",    "destination": "https://getfmify.com/start",  "permanent": true },
+    { "source": "/fmify",            "destination": "https://getfmify.com/",       "permanent": true },
+    { "source": "/fmify.html",       "destination": "https://getfmify.com/",       "permanent": true },
+    { "source": "/fmify-scale",      "destination": "https://getfmify.com/scale",  "permanent": true },
+    { "source": "/fmify-scale.html", "destination": "https://getfmify.com/scale",  "permanent": true },
+    { "source": "/fmify-thanks",     "destination": "https://getfmify.com/thanks", "permanent": true },
+    { "source": "/fmify-thanks.html","destination": "https://getfmify.com/thanks", "permanent": true }
   ]
 }
