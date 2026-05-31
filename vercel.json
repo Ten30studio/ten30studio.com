@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     { "source": "/start",            "destination": "https://getfmify.com/start",  "permanent": true },
     { "source": "/start.html",       "destination": "https://getfmify.com/start",  "permanent": true },
@@ -8,7 +10,11 @@
     { "source": "/fmify.html",       "destination": "https://getfmify.com/",       "permanent": true },
     { "source": "/fmify-scale",      "destination": "https://getfmify.com/scale",  "permanent": true },
     { "source": "/fmify-scale.html", "destination": "https://getfmify.com/scale",  "permanent": true },
-    { "source": "/fmify-thanks",     "destination": "https://getfmify.com/", "permanent": true },
-    { "source": "/fmify-thanks.html","destination": "https://getfmify.com/", "permanent": true }
+    { "source": "/fmify-thanks",     "destination": "https://getfmify.com/",       "permanent": true },
+    { "source": "/fmify-thanks.html","destination": "https://getfmify.com/",       "permanent": true },
+    { "source": "/fixplug-demo",     "destination": "https://fixplug.app",         "permanent": true },
+    { "source": "/fixplug-demo.html","destination": "https://fixplug.app",         "permanent": true },
+    { "source": "/stylebytt-v2",     "destination": "/",                            "permanent": true },
+    { "source": "/stylebytt-v2.html","destination": "/",                            "permanent": true }
   ]
 }
