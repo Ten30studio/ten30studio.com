@@ -15,6 +15,13 @@
     { "source": "/fixplug-demo",     "destination": "https://fixplug.app",         "permanent": true },
     { "source": "/fixplug-demo.html","destination": "https://fixplug.app",         "permanent": true },
     { "source": "/stylebytt-v2",     "destination": "/",                            "permanent": true },
-    { "source": "/stylebytt-v2.html","destination": "/",                            "permanent": true }
+    { "source": "/stylebytt-v2.html","destination": "/",                            "permanent": true },
+    { "source": "/welcome/sage",      "destination": "https://getfmify.com/welcome/sage",      "permanent": true },
+    { "source": "/welcome/iscooling", "destination": "https://getfmify.com/welcome/iscooling", "permanent": true },
+    { "source": "/careflow",                  "destination": "/", "permanent": true },
+    { "source": "/careflow/(.*)",             "destination": "/", "permanent": true },
+    { "source": "/careflow-birmingham",       "destination": "/", "permanent": true },
+    { "source": "/careflow-sutton-coldfield", "destination": "/", "permanent": true },
+    { "source": "/careflow-west-midlands",    "destination": "/", "permanent": true }
   ]
 }
