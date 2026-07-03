@@ -32,7 +32,7 @@
   <!-- ============ NAV ============ -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="/" class="brand" aria-label="Ten30 Studio — home">
+      <a href="/" class="brand" aria-label="Ten30 Studio, home">
         <span class="brand-mark">Ten30<span class="dot">.</span></span>
         <span class="brand-sub">Studio</span>
       </a>
@@ -306,7 +306,7 @@
           input=document.getElementById('t30-input'), send=document.getElementById('t30-send'), greeted=false;
       function add(text, who){var d=document.createElement('div');d.className='t30-msg '+who;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
       function open(){panel.classList.add('open');launch.style.display='none';input.focus();
-        if(!greeted){greeted=true;add("Hi — I'm Tilda, Ten30 Studio's concierge. Ask me about our planners, FMIFY, OgunScan, or getting a clean web presence built for you.",'bot');}}
+        if(!greeted){greeted=true;add("Hi, I'm Tilda, Ten30 Studio's concierge. Ask me about our planners, FMIFY, OgunScan, or getting a clean web presence built for you.",'bot');}}
       function shut(){panel.classList.remove('open');launch.style.display='flex';}
       launch.addEventListener('click',open);close.addEventListener('click',shut);
       async function sendMsg(){
@@ -315,7 +315,7 @@
         try{
           var r=await fetch('/api/ten30-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t,session_id:SID})});
           var j=await r.json();typing.textContent=j.reply||"Sorry, I couldn't reach our system just now. Please try again.";
-        }catch(e){typing.textContent='Connection issue — please try again in a moment.';}
+        }catch(e){typing.textContent='Connection issue. Please try again in a moment.';}
         send.disabled=false;input.focus();
       }
       send.addEventListener('click',sendMsg);
