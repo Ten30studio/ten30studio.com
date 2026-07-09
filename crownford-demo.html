@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crownford Intelligence · Live Demo</title>
+  <title>Crownford Intelligence — Live Demo</title>
   <style>
     :root {
       --bg: #f4f6f9;
@@ -436,7 +436,7 @@
 
   <!-- Intro Banner -->
   <div class="intro-banner">
-    <h2>Your AI Compliance Expert, Always On</h2>
+    <h2>Your AI Compliance Expert — Always On</h2>
     <p>Ask anything about UK building regulations, energy assessments, BREEAM, overheating, retrofit, or any of our 20+ services. Get expert answers in seconds.</p>
   </div>
 
@@ -446,7 +446,7 @@
     <div class="suggestions-grid">
       <button class="suggestion-chip" onclick="sendSuggestion(this)">How long does a SAP assessment take?</button>
       <button class="suggestion-chip" onclick="sendSuggestion(this)">What does Part L compliance require for a new home?</button>
-      <button class="suggestion-chip" onclick="sendSuggestion(this)">My project failed TM59 overheating. What are my options?</button>
+      <button class="suggestion-chip" onclick="sendSuggestion(this)">My project failed TM59 overheating — what are my options?</button>
       <button class="suggestion-chip" onclick="sendSuggestion(this)">What information do you need from the architect for an EPC?</button>
       <button class="suggestion-chip" onclick="sendSuggestion(this)">Explain the difference between TM52 and TM59</button>
       <button class="suggestion-chip" onclick="sendSuggestion(this)">What BREEAM credits are easiest to achieve?</button>
@@ -581,7 +581,7 @@
       .replace(/^\s*\d+\.\s+(.+)$/gm, '<li>$1</li>')
       // Wrap consecutive li items
       .replace(/(<li>.*<\/li>(\n|$))+/g, m => `<ul>${m}</ul>`)
-      // Paragraphs: double newline
+      // Paragraphs — double newline
       .replace(/\n\n+/g, '</p><p>')
       // Single newlines
       .replace(/\n/g, '<br>')
@@ -683,7 +683,7 @@
   // Auto-greet on load
   window.addEventListener('load', () => {
     setTimeout(() => {
-      const greeting = "Good day. I'm Crownford Intelligence, your always-on compliance assistant. Whether it's SAP, Part L, TM59, BREEAM, or any of our other services, ask me whenever you need an answer.\n\nWhat project or compliance question can I help you with today?";
+      const greeting = "Good day. I'm Crownford Intelligence — your always-on compliance expert. Whether it's SAP, Part L, TM59, BREEAM, or any of our other services, I'm here to give you precise answers whenever you need them.\n\nWhat project or compliance question can I help you with today?";
       addMessage('ai', greeting);
       conversationHistory.push({ role: 'assistant', content: greeting });
     }, 400);
